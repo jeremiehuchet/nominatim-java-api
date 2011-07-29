@@ -11,7 +11,7 @@
  * You should have received a copy of the GNU General Public License along with this program. 
  * If not, see <http://www.gnu.org/licenses/>.
  */
-package fr.itinerennes.nominatim.client;
+package fr.dudie.nominatim.client;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.itinerennes.nominatim.model.Address;
+import fr.dudie.nominatim.model.Address;
 
 /**
  * Parses a json response from the Nominatim API for a reverse geocoding request.

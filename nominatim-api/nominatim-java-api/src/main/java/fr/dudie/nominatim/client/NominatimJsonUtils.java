@@ -11,7 +11,7 @@
  * You should have received a copy of the GNU General Public License along with this program. 
  * If not, see <http://www.gnu.org/licenses/>.
  */
-package fr.itinerennes.nominatim.client;
+package fr.dudie.nominatim.client;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,10 +19,10 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.itinerennes.nominatim.model.Address;
-import fr.itinerennes.nominatim.model.AddressElement;
-import fr.itinerennes.nominatim.model.BoundingBox;
-import fr.itinerennes.nominatim.model.PolygonPoint;
+import fr.dudie.nominatim.model.Address;
+import fr.dudie.nominatim.model.AddressElement;
+import fr.dudie.nominatim.model.BoundingBox;
+import fr.dudie.nominatim.model.PolygonPoint;
 
 /**
  * Utilities to convert json responses returned by Nominatim API.

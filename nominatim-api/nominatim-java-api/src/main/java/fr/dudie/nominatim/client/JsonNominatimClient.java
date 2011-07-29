@@ -11,7 +11,7 @@
  * You should have received a copy of the GNU General Public License along with this program. 
  * If not, see <http://www.gnu.org/licenses/>.
  */
-package fr.itinerennes.nominatim.client;
+package fr.dudie.nominatim.client;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -22,9 +22,10 @@ import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.itinerennes.nominatim.exceptions.NominatimNoResultException;
-import fr.itinerennes.nominatim.model.Address;
-import fr.itinerennes.nominatim.model.BoundingBox;
+import fr.dudie.nominatim.exceptions.NominatimNoResultException;
+import fr.dudie.nominatim.model.Address;
+import fr.dudie.nominatim.model.BoundingBox;
+
 
 /**
  * An implementation of the Nominatim Api Service.
@@ -113,7 +114,7 @@ public class JsonNominatimClient implements NominatimClient {
     /**
      * {@inheritDoc}
      * 
-     * @see fr.itinerennes.nominatim.client.NominatimClient#search(java.lang.String)
+     * @see fr.dudie.nominatim.client.NominatimClient#search(java.lang.String)
      */
     @Override
     public List<Address> search(final String query) throws IOException {
@@ -131,7 +132,7 @@ public class JsonNominatimClient implements NominatimClient {
     /**
      * {@inheritDoc}
      * 
-     * @see fr.itinerennes.nominatim.client.NominatimClient#getAddress(double, double)
+     * @see fr.dudie.nominatim.client.NominatimClient#getAddress(double, double)
      */
     @Override
     public final Address getAddress(final double longitude, final double latitude)
@@ -151,7 +152,7 @@ public class JsonNominatimClient implements NominatimClient {
     /**
      * {@inheritDoc}
      * 
-     * @see fr.itinerennes.nominatim.client.NominatimClient#getAddress(int, int)
+     * @see fr.dudie.nominatim.client.NominatimClient#getAddress(int, int)
      */
     @Override
     public final Address getAddress(final int longitudeE6, final int latitudeE6)

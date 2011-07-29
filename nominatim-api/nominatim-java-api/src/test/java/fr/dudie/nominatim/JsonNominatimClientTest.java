@@ -11,7 +11,7 @@
  * You should have received a copy of the GNU General Public License along with this program. 
  * If not, see <http://www.gnu.org/licenses/>.
  */
-package fr.itinerennes.nominatim;
+package fr.dudie.nominatim;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,9 +31,10 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.itinerennes.nominatim.client.JsonNominatimClient;
-import fr.itinerennes.nominatim.exceptions.NominatimNoResultException;
-import fr.itinerennes.nominatim.model.Address;
+import fr.dudie.nominatim.client.JsonNominatimClient;
+import fr.dudie.nominatim.exceptions.NominatimNoResultException;
+import fr.dudie.nominatim.model.Address;
+
 
 /**
  * Test class for {@link JsonNominatimClient}.

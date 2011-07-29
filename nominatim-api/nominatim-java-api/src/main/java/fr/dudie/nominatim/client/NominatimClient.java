@@ -11,13 +11,14 @@
  * You should have received a copy of the GNU General Public License along with this program. 
  * If not, see <http://www.gnu.org/licenses/>.
  */
-package fr.itinerennes.nominatim.client;
+package fr.dudie.nominatim.client;
 
 import java.io.IOException;
 import java.util.List;
 
-import fr.itinerennes.nominatim.exceptions.NominatimNoResultException;
-import fr.itinerennes.nominatim.model.Address;
+import fr.dudie.nominatim.exceptions.NominatimNoResultException;
+import fr.dudie.nominatim.model.Address;
+
 
 /**
  * Interface to use the Google Maps Service.

@@ -1,0 +1,104 @@
+/* 
+ * This program is free software: you can redistribute it and/or modify it under 
+ * the terms of the GNU General Public License as published by the 
+ * Free Software Foundation, either version 3 of the License, or 
+ * (at your option) any later version. 
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * See the GNU General Public License for more details. 
+ * 
+ * You should have received a copy of the GNU General Public License along with this program. 
+ * If not, see <http://www.gnu.org/licenses/>.
+ */
+package fr.itinerennes.nominatim;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Properties;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.http.client.HttpClient;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.SingleClientConnManager;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import fr.itinerennes.nominatim.client.JsonNominatimClient;
+import fr.itinerennes.nominatim.exceptions.NominatimNoResultException;
+import fr.itinerennes.nominatim.model.Address;
+
+/**
+ * Test class for {@link JsonNominatimClient}.
+ * 
+ * @author Jérémie Huchet
+ */
+public class JsonNominatimClientTest {
+
+    /** The event logger. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(JsonNominatimClientTest.class);
+
+    /** The tested Nominatim client. */
+    private static JsonNominatimClient nominatimClient;
+
+    /** Path to the properties file. */
+    private static final String PROPS_PATH = "/nominatim-client-test.properties";
+
+    /** Loaded properties. */
+    private static final Properties PROPS = new Properties();
+
+    /**
+     * Instantiates the test.
+     * 
+     * @throws IOException
+     *             an error occurred during initialization
+     */
+    public JsonNominatimClientTest() throws IOException {
+
+        LOGGER.info("Loading configuration file {}", PROPS_PATH);
+        final InputStream in = JsonNominatimClientTest.class.getResourceAsStream(PROPS_PATH);
+        PROPS.load(in);
+
+        LOGGER.info("Preparing http client");
+        final SchemeRegistry registry = new SchemeRegistry();
+        registry.register(new Scheme("http", new PlainSocketFactory(), 80));
+        final ClientConnectionManager connexionManager = new SingleClientConnManager(null, registry);
+
+        final HttpClient httpClient = new DefaultHttpClient(connexionManager, null);
+
+        final String email = PROPS.getProperty("nominatim.headerEmail");
+        nominatimClient = new JsonNominatimClient(httpClient, email);
+    }
+
+    @Test
+    public void testGetAddress() throws IOException, NominatimNoResultException {
+
+        LOGGER.info("testGetAddress.start");
+
+        final Address address = nominatimClient.getAddress(1.64891269513038, 48.1166561643464);
+        LOGGER.debug(ToStringBuilder.reflectionToString(address, ToStringStyle.MULTI_LINE_STYLE));
+
+        LOGGER.info("testGetAddress.end");
+    }
+
+    @Test
+    public void testSearch() throws IOException {
+
+        LOGGER.info("testSearch.start");
+
+        final List<Address> addresses = nominatimClient.search("boulevard de vitré, rennes");
+        for (final Address address : addresses) {
+            LOGGER.debug(ToStringBuilder
+                    .reflectionToString(address, ToStringStyle.MULTI_LINE_STYLE));
+        }
+
+        LOGGER.info("testSearch.end");
+    }
+}

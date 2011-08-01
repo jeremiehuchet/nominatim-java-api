@@ -13,6 +13,9 @@
  */
 package fr.dudie.nominatim;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -32,9 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.dudie.nominatim.client.JsonNominatimClient;
-import fr.dudie.nominatim.exceptions.NominatimNoResultException;
 import fr.dudie.nominatim.model.Address;
-
 
 /**
  * Test class for {@link JsonNominatimClient}.
@@ -79,27 +80,46 @@ public class JsonNominatimClientTest {
     }
 
     @Test
-    public void testGetAddress() throws IOException, NominatimNoResultException {
+    public void testGetAddress() throws IOException {
 
         LOGGER.info("testGetAddress.start");
 
         final Address address = nominatimClient.getAddress(1.64891269513038, 48.1166561643464);
         LOGGER.debug(ToStringBuilder.reflectionToString(address, ToStringStyle.MULTI_LINE_STYLE));
 
+        assertNotNull("a result should be found", address);
+
         LOGGER.info("testGetAddress.end");
     }
 
     @Test
-    public void testSearch() throws IOException {
+    public void testSearchWithResults() throws IOException {
 
-        LOGGER.info("testSearch.start");
+        LOGGER.info("testSearchWithResults.start");
 
         final List<Address> addresses = nominatimClient.search("boulevard de vitré, rennes");
+
+        assertNotNull("result list is never null", addresses);
         for (final Address address : addresses) {
             LOGGER.debug(ToStringBuilder
                     .reflectionToString(address, ToStringStyle.MULTI_LINE_STYLE));
         }
+        assertTrue("list is not empty", !addresses.isEmpty());
 
-        LOGGER.info("testSearch.end");
+        LOGGER.info("testSearchWithResults.end");
+    }
+
+    @Test
+    public void testSearchWithoutResults() throws IOException {
+
+        LOGGER.info("testSearchWithoutResults.start");
+
+        final List<Address> addresses = nominatimClient
+                .search("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbb");
+
+        assertNotNull("result list is never null", addresses);
+        assertTrue("list is empty", addresses.isEmpty());
+
+        LOGGER.info("testSearchWithoutResults.end");
     }
 }

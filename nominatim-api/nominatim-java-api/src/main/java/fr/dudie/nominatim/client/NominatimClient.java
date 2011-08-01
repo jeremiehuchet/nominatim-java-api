@@ -16,9 +16,7 @@ package fr.dudie.nominatim.client;
 import java.io.IOException;
 import java.util.List;
 
-import fr.dudie.nominatim.exceptions.NominatimNoResultException;
 import fr.dudie.nominatim.model.Address;
-
 
 /**
  * Interface to use the Google Maps Service.
@@ -45,14 +43,12 @@ public interface NominatimClient {
      *            a longitude
      * @param latitude
      *            a latitude
-     * @return an address corresponding to the given longitude and latitude
+     * @return an address corresponding to the given longitude and latitude or <code>null</code> if
+     *         no result found
      * @throws IOException
      *             a communication error occurred
-     * @throws NominatimNoResultException
-     *             the Nominatim Api doesn't find any result
      */
-    Address getAddress(final double longitude, final double latitude) throws IOException,
-            NominatimNoResultException;
+    Address getAddress(final double longitude, final double latitude) throws IOException;
 
     /**
      * A convenience method to do the same as {@link #getAddress(double, double)} but with int E6
@@ -62,12 +58,10 @@ public interface NominatimClient {
      *            a longitude E6
      * @param latitudeE6
      *            a latitude E6
-     * @return an address corresponding to the given longitude and latitude
+     * @return an address corresponding to the given longitude and latitude or <code>null</code> if
+     *         no result found
      * @throws IOException
      *             a communication error occurred
-     * @throws NominatimNoResultException
-     *             the Nominatim Api doesn't find any result
      */
-    Address getAddress(final int longitudeE6, final int latitudeE6) throws IOException,
-            NominatimNoResultException;
+    Address getAddress(final int longitudeE6, final int latitudeE6) throws IOException;
 }

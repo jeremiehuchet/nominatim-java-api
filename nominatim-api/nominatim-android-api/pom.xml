@@ -38,9 +38,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <resource>
                 <directory>${basedir}</directory>
                 <includes>
-                    <include>LICENSE</include>
-                    <include>NOTICE</include>
-                    <include>README</include>
+                    <include>LICENSE.nominatim-android-api</include>
+                    <include>NOTICE.nominatim-android-api</include>
+                    <include>README.nominatim-android-api</include>
                 </includes>
             </resource>
         </resources>

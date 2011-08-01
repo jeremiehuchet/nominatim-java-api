@@ -47,7 +47,7 @@ public final class ReverseGeocodingResponseHandler implements ResponseHandler<Ad
         String content = null;
         Address address = null;
         try {
-            content = EntityUtils.toString(response.getEntity());
+            content = EntityUtils.toString(response.getEntity(), "utf-8");
             final JSONObject json = new JSONObject(content);
             address = NominatimJsonUtils.toAddress(json);
         } catch (final JSONException e) {

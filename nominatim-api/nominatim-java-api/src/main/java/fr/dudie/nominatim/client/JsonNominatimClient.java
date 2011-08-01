@@ -22,10 +22,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.dudie.nominatim.exceptions.NominatimNoResultException;
 import fr.dudie.nominatim.model.Address;
 import fr.dudie.nominatim.model.BoundingBox;
-
 
 /**
  * An implementation of the Nominatim Api Service.
@@ -136,7 +134,7 @@ public class JsonNominatimClient implements NominatimClient {
      */
     @Override
     public final Address getAddress(final double longitude, final double latitude)
-            throws IOException, NominatimNoResultException {
+            throws IOException {
 
         final String apiCall = String.format(reverseGeocodingUrl, toString(latitude),
                 toString(longitude));
@@ -155,8 +153,7 @@ public class JsonNominatimClient implements NominatimClient {
      * @see fr.dudie.nominatim.client.NominatimClient#getAddress(int, int)
      */
     @Override
-    public final Address getAddress(final int longitudeE6, final int latitudeE6)
-            throws IOException, NominatimNoResultException {
+    public final Address getAddress(final int longitudeE6, final int latitudeE6) throws IOException {
 
         return getAddress((longitudeE6 / 1E6), (latitudeE6 / 1E6));
     }

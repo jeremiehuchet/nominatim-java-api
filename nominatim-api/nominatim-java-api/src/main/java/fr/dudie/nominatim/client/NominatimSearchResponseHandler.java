@@ -15,6 +15,7 @@ package fr.dudie.nominatim.client;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -44,12 +45,13 @@ public final class NominatimSearchResponseHandler implements ResponseHandler<Lis
      * @see org.apache.http.client.ResponseHandler#handleResponse(org.apache.http.HttpResponse)
      */
     @Override
+    @SuppressWarnings("unchecked")
     public List<Address> handleResponse(final HttpResponse response) throws IOException {
 
         String content = null;
-        List<Address> addresses = null;
+        List<Address> addresses = Collections.EMPTY_LIST;
         try {
-            content = EntityUtils.toString(response.getEntity());
+            content = EntityUtils.toString(response.getEntity(), "utf-8");
             final JSONArray json = new JSONArray(content);
             addresses = new ArrayList<Address>(json.length());
             for (int i = 0; i < json.length(); i++) {

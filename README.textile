@@ -2,7 +2,15 @@ h1. Nominatim Java API
 
 This library provides a client for "Nominatim":http://wiki.openstreetmap.org/wiki/Nominatim. This API provides search and reverse geocoding operations. 
 
-* nominatim-java-api is a pure Java implementation and relies on @org.json:json-20070829@ and @org.apache.httpcomponents:httpclient-4.0.2@
-* nominatim-android-api uses the same source code but depends on @com.google.android:android-2.3.3@
+h2. Java & Android
+
+This library is fully compatible with Android. The @pom.xml@ file has two profiles: 
+* **target-java** is the default and use commons java dependencies(@org.json:json-20070829@ and @org.apache.httpcomponents:httpclient-4.0.2@)
+* **target-android** is activable setting system property _keolis-rennes-api.target_ to _android_. Then the dependencies will be switched to (@com.google.android:android-2.3.3@)
 
 Please report bugs on "Github tracker":https://github.com/kops/nominatim-java-api/issues/new or "contact us":http://www.google.com/recaptcha/mailhide/d?k=01Th60_7w3rxWuSJumsnqxfg==&c=REgbsYXndhO58POROxZGybu0F_Xu3JmR-wBRNbh8knE.
+
+h2. Features
+
+* string searches
+* reverse geocoding

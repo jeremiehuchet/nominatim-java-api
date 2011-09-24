@@ -30,7 +30,7 @@ import fr.dudie.nominatim.model.BoundingBox;
  * 
  * @author Jérémie Huchet
  */
-public class JsonNominatimClient implements NominatimClient {
+public final class JsonNominatimClient implements NominatimClient {
 
     /** The event logger. */
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonNominatimClient.class);
@@ -38,6 +38,7 @@ public class JsonNominatimClient implements NominatimClient {
     /** The HTTP header "Accept". */
     private static final String H_ACCEPT = "Accept";
 
+    /** The url to make search queries. */
     private final String searchUrl;
 
     /** The url to make a query for a reverse geocoding. */
@@ -153,7 +154,7 @@ public class JsonNominatimClient implements NominatimClient {
      * @see fr.dudie.nominatim.client.NominatimClient#getAddress(int, int)
      */
     @Override
-    public final Address getAddress(final int longitudeE6, final int latitudeE6) throws IOException {
+    public Address getAddress(final int longitudeE6, final int latitudeE6) throws IOException {
 
         return getAddress((longitudeE6 / 1E6), (latitudeE6 / 1E6));
     }
@@ -165,7 +166,7 @@ public class JsonNominatimClient implements NominatimClient {
      *            a double value
      * @return the string representation (e. g. "48.054600")
      */
-    private final static String toString(final double value) {
+    private static String toString(final double value) {
 
         return String.format("%f", value).replaceAll(",", ".");
     }

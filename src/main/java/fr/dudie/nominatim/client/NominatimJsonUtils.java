@@ -35,12 +35,20 @@ public final class NominatimJsonUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(NominatimJsonUtils.class);
 
     /**
+     * Private constructor to avoid instantiation.
+     */
+    private NominatimJsonUtils() {
+
+    }
+
+    /**
      * Converts a json string to a java object.
      * 
      * @param json
      *            a json string representing an {@link Address}
      * @return an address
      * @throws JSONException
+     *             unable to parse json data
      */
     public static Address toAddress(final JSONObject json) throws JSONException {
 
@@ -82,6 +90,7 @@ public final class NominatimJsonUtils {
      * </pre>
      * @return a bounding box object
      * @throws JSONException
+     *             unable to parse json data
      */
     private static BoundingBox getBoundingBox(final JSONArray json) throws JSONException {
 
@@ -110,6 +119,7 @@ public final class NominatimJsonUtils {
      *            a json string containing an array of polygon points
      * @return an array of polygon points
      * @throws JSONException
+     *             unable to parse json data
      */
     private static PolygonPoint[] getPlygonPoints(final JSONArray json) throws JSONException {
 
@@ -134,11 +144,10 @@ public final class NominatimJsonUtils {
      * Extracts the address properties of a json object.
      * 
      * @param json
-     *            the json string containing the address properties.
-     * @param a
-     *            the address object
+     *            the json string containing the address properties
      * @return the list of elements contained in the json string
      * @throws JSONException
+     *             unable to parse json data
      */
     private static AddressElement[] getAddressElements(final JSONObject json) throws JSONException {
 

@@ -173,12 +173,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </dependencies>
         </profile>
     </profiles>
-    
-    <repositories>
-	<repository>
-	    <id>staging-sonatype</id>
-	    <name>Sonatype Staging</name>
-	    <url>https://oss.sonatype.org/service/local/repositories/frdudie-152/content/</url>
-	</repository>
-    </repositories>
+
 </project>

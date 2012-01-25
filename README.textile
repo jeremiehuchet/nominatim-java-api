@@ -12,5 +12,10 @@ Please ask for enhancements and report bugs on "Github tracker":https://github.c
 
 h2. Features
 
+1.0
 * string searches
 * reverse geocoding
+
+1.0.1
+* Expose the OpenStreetMap place_id field on the Address class. [Tony McCrae]
+

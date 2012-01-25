@@ -63,6 +63,7 @@ public final class NominatimJsonUtils {
             LOGGER.info("response conatins polygonpoints but they are ignored");
         }
 
+        address.setPlaceId(json.optInt("place_id"));
         address.setLatitude(json.optDouble("lat"));
         address.setLongitude(json.optDouble("lon"));
 

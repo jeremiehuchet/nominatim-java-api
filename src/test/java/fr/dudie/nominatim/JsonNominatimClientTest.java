@@ -88,7 +88,8 @@ public class JsonNominatimClientTest {
         LOGGER.debug(ToStringBuilder.reflectionToString(address, ToStringStyle.MULTI_LINE_STYLE));
 
         assertNotNull("a result should be found", address);
-
+        assertTrue("address expose the OSM place_id", address.getPlaceId() > 0);
+        
         LOGGER.info("testGetAddress.end");
     }
 

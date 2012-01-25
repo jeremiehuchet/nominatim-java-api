@@ -53,8 +53,8 @@ package fr.dudie.nominatim.model;
  */
 public class Address {
 
-	/** The OpenStreetMap place id. */
-	private int placeId;
+    /** The OpenStreetMap place id. */
+    private int placeId;
 	
     /** The OpenStreetMap type. */
     private String osmType;
@@ -89,21 +89,21 @@ public class Address {
      * @return the osmPlaceId
      */
     public int getPlaceId() {
-	
-    	return placeId;
-    	
-	}
+
+        return placeId;
+
+    }
 
     /**
      * Sets the osmPlaceId.
      * 
      * @param placeId
      */
-	public void setPlaceId(int placeId) {
-		
-		this.placeId = placeId;
-		
-	}
+    public void setPlaceId(int placeId) {
+
+        this.placeId = placeId;
+
+    }
 
 	/**
      * Gets the osmType.

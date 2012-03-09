@@ -98,7 +98,6 @@ public final class JsonNominatimClient implements NominatimClient {
         searchUrlBuilder
                 .append("http://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=%s&email=");
         searchUrlBuilder.append(email);
-
         if (polygon) {
             searchUrlBuilder.append("&polygon=1");
         } else {
@@ -119,8 +118,11 @@ public final class JsonNominatimClient implements NominatimClient {
         this.searchUrl = searchUrlBuilder.toString();
 
         // prepare reverse geocoding URL template
-        this.reverseGeocodingUrl = "http://nominatim.openstreetmap.org/reverse?format=json&polygon=0&addressdetails=1&lat=%s&lon=%s&email="
-                + email;
+        final StringBuilder reverseGeocodingUrlBuilder = new StringBuilder();
+        reverseGeocodingUrlBuilder
+                .append("http://nominatim.openstreetmap.org/reverse?format=json&addressdetails=1&lat=%s&lon=%s&email=");
+        reverseGeocodingUrlBuilder.append(email);
+        this.reverseGeocodingUrl = reverseGeocodingUrlBuilder.toString();
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("API search URL: {}", searchUrl);

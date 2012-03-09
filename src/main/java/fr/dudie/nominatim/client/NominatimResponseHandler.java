@@ -14,30 +14,47 @@
 package fr.dudie.nominatim.client;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ResponseHandler;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.dudie.nominatim.model.Address;
+import com.google.gson.Gson;
 
 /**
  * Parses a json response from the Nominatim API for a reverse geocoding request.
  * 
  * @author Jérémie Huchet
  */
-public final class NominatimSearchResponseHandler implements ResponseHandler<List<Address>> {
+public final class NominatimResponseHandler<T> implements ResponseHandler<T> {
 
     /** The event logger. */
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(NominatimSearchResponseHandler.class);
+            .getLogger(NominatimResponseHandler.class);
+
+    /** Gson instance for Nominatim API calls. */
+    private final Gson gsonInstance;
+
+    /** The expected type of objects. */
+    private final Type responseType;
+
+    /**
+     * Constructor.
+     * 
+     * @param gsonInstance
+     *            the Gson instance
+     * @param responseType
+     *            the expected type of objects
+     */
+    public NominatimResponseHandler(final Gson gsonInstance, final Type responseType) {
+
+        this.gsonInstance = gsonInstance;
+        this.responseType = responseType;
+    }
 
     /**
      * {@inheritDoc}
@@ -45,21 +62,20 @@ public final class NominatimSearchResponseHandler implements ResponseHandler<Lis
      * @see org.apache.http.client.ResponseHandler#handleResponse(org.apache.http.HttpResponse)
      */
     @Override
-    @SuppressWarnings("unchecked")
-    public List<Address> handleResponse(final HttpResponse response) throws IOException {
+    public T handleResponse(final HttpResponse response) throws IOException {
 
-        String content = null;
-        List<Address> addresses = Collections.EMPTY_LIST;
+        InputStream content = null;
+        final T addresses;
+
         try {
-            content = EntityUtils.toString(response.getEntity(), "utf-8");
-            final JSONArray json = new JSONArray(content);
-            addresses = new ArrayList<Address>(json.length());
-            for (int i = 0; i < json.length(); i++) {
-                addresses.add(NominatimJsonUtils.toAddress(json.getJSONObject(i)));
+            content = response.getEntity().getContent();
+            addresses = gsonInstance
+                    .fromJson(new InputStreamReader(content, "utf-8"), responseType);
+        } finally {
+            if (null != content) {
+                content.close();
             }
-        } catch (final JSONException e) {
-            throw new IOException("Unable to parse the json response received from Nominatim:\n"
-                    + content);
+            response.getEntity().consumeContent();
         }
 
         return addresses;

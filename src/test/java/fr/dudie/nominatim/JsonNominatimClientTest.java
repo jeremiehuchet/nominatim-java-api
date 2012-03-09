@@ -13,8 +13,7 @@
  */
 package fr.dudie.nominatim;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,7 +41,7 @@ import fr.dudie.nominatim.model.Address;
  * 
  * @author Jérémie Huchet
  */
-public class JsonNominatimClientTest {
+public final class JsonNominatimClientTest {
 
     /** The event logger. */
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonNominatimClientTest.class);
@@ -76,7 +75,7 @@ public class JsonNominatimClientTest {
         final HttpClient httpClient = new DefaultHttpClient(connexionManager, null);
 
         final String email = PROPS.getProperty("nominatim.headerEmail");
-        nominatimClient = new JsonNominatimClient(httpClient, email);
+        nominatimClient = new JsonNominatimClient(httpClient, email, null, false, true);
     }
 
     @Test
@@ -89,7 +88,8 @@ public class JsonNominatimClientTest {
 
         assertNotNull("a result should be found", address);
         assertTrue("address expose the OSM place_id", address.getPlaceId() > 0);
-        
+        assertNull("no polygonpoint", address.getPolygonPoints());
+
         LOGGER.info("testGetAddress.end");
     }
 
@@ -98,7 +98,7 @@ public class JsonNominatimClientTest {
 
         LOGGER.info("testSearchWithResults.start");
 
-        final List<Address> addresses = nominatimClient.search("boulevard de vitré, rennes");
+        final List<Address> addresses = nominatimClient.search("vitré, rennes");
 
         assertNotNull("result list is never null", addresses);
         for (final Address address : addresses) {

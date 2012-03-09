@@ -16,6 +16,15 @@ package fr.dudie.nominatim.model;
 /**
  * Represents a viewport.
  * 
+ * <pre>
+ *     "boundingbox": [
+ *         "48.1190567016602",
+ *         "48.1191635131836",
+ *         "-1.6499342918396",
+ *         "-1.64988231658936"
+ *     ],
+ * </pre>
+ * 
  * @author Jérémie Huchet
  */
 public class BoundingBox {

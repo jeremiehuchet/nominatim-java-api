@@ -75,11 +75,11 @@ public final class Address {
     private PolygonPoint[] polygonPoints;
 
     /** The address longitude. */
-    @SerializedName("lat")
+    @SerializedName("lon")
     private double longitude;
 
     /** The address latitude. */
-    @SerializedName("lon")
+    @SerializedName("lat")
     private double latitude;
 
     /** The address display name. */

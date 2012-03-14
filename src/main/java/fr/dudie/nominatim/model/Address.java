@@ -235,6 +235,16 @@ public final class Address {
     }
 
     /**
+     * Gets the address longitude.
+     * 
+     * @return the address longitude
+     */
+    public int getLongitudeE6() {
+
+        return (int) (longitude * 1E6);
+    }
+
+    /**
      * Sets the address longitude.
      * 
      * @param longitude
@@ -243,6 +253,17 @@ public final class Address {
     public void setLongitude(final double longitude) {
 
         this.longitude = longitude;
+    }
+
+    /**
+     * Sets the address longitude.
+     * 
+     * @param longitude
+     *            the address longitude to set
+     */
+    public void setLongitudeE6(final int longitude) {
+
+        this.longitude = longitude / 1E6;
     }
 
     /**
@@ -256,6 +277,16 @@ public final class Address {
     }
 
     /**
+     * Gets the address latitude.
+     * 
+     * @return the address latitude
+     */
+    public int getLatitudeE6() {
+
+        return (int) (latitude * 1E6);
+    }
+
+    /**
      * Sets the address latitude.
      * 
      * @param latitude
@@ -264,6 +295,17 @@ public final class Address {
     public void setLatitude(final double latitude) {
 
         this.latitude = latitude;
+    }
+
+    /**
+     * Sets the address latitude.
+     * 
+     * @param latitude
+     *            the address latitude to set
+     */
+    public void setLatitudeE6(final int latitude) {
+
+        this.latitude = latitude / 1E6;
     }
 
     /**

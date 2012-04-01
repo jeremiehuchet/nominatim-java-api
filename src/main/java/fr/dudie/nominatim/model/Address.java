@@ -53,7 +53,7 @@ public final class Address {
 
     /** The OpenStreetMap place id. */
     @SerializedName("place_id")
-    private int placeId;
+    private long placeId;
 
     /** The data licence. */
     private String licence;
@@ -103,7 +103,7 @@ public final class Address {
      * 
      * @return the OpenStreetMap place id
      */
-    public int getPlaceId() {
+    public long getPlaceId() {
 
         return placeId;
     }
@@ -114,7 +114,7 @@ public final class Address {
      * @param placeId
      *            the OpenStreetMap place id to set
      */
-    public void setPlaceId(final int placeId) {
+    public void setPlaceId(final long placeId) {
 
         this.placeId = placeId;
     }

@@ -123,4 +123,21 @@ public final class JsonNominatimClientTest {
 
         LOGGER.info("testSearchWithoutResults.end");
     }
+
+    @Test
+    public void testSearchWithForLongPlaceId() throws IOException {
+
+        LOGGER.info("testSearchWithResults.start");
+
+        final List<Address> addresses = nominatimClient.search("ул. Евдокимова,37, Ростов-на-дону");
+
+        assertNotNull("result list is not null", addresses);
+        for (final Address address : addresses) {
+            LOGGER.debug(ToStringBuilder
+                    .reflectionToString(address, ToStringStyle.MULTI_LINE_STYLE));
+        }
+        assertTrue("list is not empty", !addresses.isEmpty());
+
+        LOGGER.info("testSearchWithResults.end");
+    }
 }

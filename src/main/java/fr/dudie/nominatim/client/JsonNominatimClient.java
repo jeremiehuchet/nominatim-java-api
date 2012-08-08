@@ -35,6 +35,8 @@ import fr.dudie.nominatim.model.AddressElement;
 import fr.dudie.nominatim.model.BoundingBox;
 import fr.dudie.nominatim.model.PolygonPoint;
 
+
+
 /**
  * An implementation of the Nominatim Api Service.
  * 
@@ -49,10 +51,10 @@ public final class JsonNominatimClient implements NominatimClient {
     private final Gson gsonInstance;
 
     /** The url to make search queries. */
-    private final String searchUrl;
+    private final RequestBuilder searchBuilder;
 
     /** The url to make a query for a reverse geocoding. */
-    private final String reverseGeocodingUrl;
+    private final RequestBuilder reverseGeocodingBuilder;
 
     /** The HTTP client. */
     private final HttpClient httpClient;
@@ -63,6 +65,7 @@ public final class JsonNominatimClient implements NominatimClient {
     /** The default response handler for reverse geocoding requests. */
     private final NominatimResponseHandler<Address> defaultReverseGeocodingHandler;
 
+        
     /**
      * Creates the json nominatim client.
      * 
@@ -73,9 +76,48 @@ public final class JsonNominatimClient implements NominatimClient {
      */
     public JsonNominatimClient(final HttpClient httpClient, final String email) {
 
-        this(httpClient, email, null, false, false);
+        this(httpClient, email, "http://nominatim.openstreetmap.org/");
     }
 
+    /**
+     * Creates the json nominatim client for a given api url.
+     * 
+     * "search" and "reverse" will be appended to the api url in the assumption that the services exist there.
+     * Make sure to end the baseApiUrl with a slash if necessary.
+     * 
+     * @param httpClient
+     *            an HTTP client
+     * @param email
+     *            an email to add in the HTTP requests parameters to "sign" them
+     * @param baseApiUrl
+     *            an URL pointing to a nominatim service 
+     */
+    public JsonNominatimClient(final HttpClient httpClient, final String email, String baseApiUrl) {
+        this(httpClient, email, new SimpleRequestBuilder(baseApiUrl + "search"), new SimpleRequestBuilder(baseApiUrl + "reverse"));
+    }
+
+    
+    /**
+     * Creates the json nominatim client for a given api url.
+     * 
+     * "search" and "reverse" will be appended to the api url in the assumption that the services exist there.
+     * Make sure to end the baseApiUrl with a slash if necessary.
+     * 
+     * @param httpClient
+     *            an HTTP client
+     * @param email
+     *            an email to add in the HTTP requests parameters to "sign" them
+     * @param searchRequest
+     *            a request template for searches
+     * @param reverseRequest 
+     *            a request template for reverse lookups
+     */
+    public JsonNominatimClient(final HttpClient httpClient, final String email, RequestBuilder searchRequest, RequestBuilder reverseRequest) {
+        this(httpClient, email, null, false, false, searchRequest, reverseRequest);
+    }
+    
+    
+    
     /**
      * Creates the json nominatim client.
      * 
@@ -91,42 +133,71 @@ public final class JsonNominatimClient implements NominatimClient {
      *            true to get results with polygon points
      */
     public JsonNominatimClient(final HttpClient httpClient, final String email,
-            final BoundingBox searchBounds, final boolean strictBounds, final boolean polygon) {
+    		final BoundingBox searchBounds, final boolean strictBounds, final boolean polygon) {
+    	this(httpClient, email, searchBounds, strictBounds, polygon, new SimpleRequestBuilder("http://nominatim.openstreetmap.org/search"), new SimpleRequestBuilder("http://nominatim.openstreetmap.org/reverse"));
+    }
 
+    
+    /**
+     * Creates the json nominatim client.
+     * 
+     * @param httpClient
+     *            an HTTP client
+     * @param email
+     *            an email to add in the HTTP requests parameters to "sign" them
+     * @param searchBounds
+     *            the prefered search bounds
+     * @param strictBounds
+     *            set to true if you want the results to be located into the given bounding box
+     * @param polygon
+     *            true to get results with polygon points
+     * @param searchRequest
+     *            a request template for searches
+     * @param reverseRequest 
+     *            a request template for reverse lookups            
+     */
+    public JsonNominatimClient(final HttpClient httpClient, final String email,
+            final BoundingBox searchBounds, final boolean strictBounds, final boolean polygon, final RequestBuilder searchRequest, final RequestBuilder reverseRequest) {
+    	
         // prepare search URL template
-        final StringBuilder searchUrlBuilder = new StringBuilder();
-        searchUrlBuilder
-                .append("http://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=%s&email=");
-        searchUrlBuilder.append(email);
+    	RequestBuilder search = searchRequest.instantiate();
+    	search.add("format", "json");
+    	search.add("addressdetails", "1");
+    	search.add("email", email);
+    	
+
         if (polygon) {
-            searchUrlBuilder.append("&polygon=1");
+        	search.add("polygon", "1");
         } else {
-            searchUrlBuilder.append("&polygon=0");
+        	search.add("polygon", "0");
         }
 
         if (searchBounds != null) {
-            searchUrlBuilder.append("&viewbox=");
-            searchUrlBuilder.append(toString(searchBounds.getWest())).append(",");
-            searchUrlBuilder.append(toString(searchBounds.getNorth())).append(",");
-            searchUrlBuilder.append(toString(searchBounds.getEast())).append(",");
-            searchUrlBuilder.append(toString(searchBounds.getSouth()));
-
+            String bounds = 
+            		toString(searchBounds.getWest()) + "," +
+            		toString(searchBounds.getNorth()) + "," +
+            		toString(searchBounds.getEast()) + "," +
+            		searchBounds.getSouth();
+            
+            search.add("viewbox", bounds);
+            
             if (strictBounds) {
-                searchUrlBuilder.append("&bounded=1");
+            	search.add("bounded", "1");
             }
         }
-        this.searchUrl = searchUrlBuilder.toString();
+        this.searchBuilder = search.instantiate();
 
         // prepare reverse geocoding URL template
-        final StringBuilder reverseGeocodingUrlBuilder = new StringBuilder();
-        reverseGeocodingUrlBuilder
-                .append("http://nominatim.openstreetmap.org/reverse?format=json&addressdetails=1&lat=%s&lon=%s&email=");
-        reverseGeocodingUrlBuilder.append(email);
-        this.reverseGeocodingUrl = reverseGeocodingUrlBuilder.toString();
+        RequestBuilder reverse = reverseRequest.instantiate();
+        reverse.add("format", "json");
+        reverse.add("addressdetails", "1");
+        reverse.add("email", email);        
+        
+        this.reverseGeocodingBuilder = reverse;
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("API search URL: {}", searchUrl);
-            LOGGER.debug("API reverse geocoding URL: {}", reverseGeocodingUrl);
+            LOGGER.debug("API search URL: {}", searchBuilder);
+            LOGGER.debug("API reverse geocoding URL: {}", reverseGeocodingBuilder);
         }
 
         // prepare gson instance
@@ -158,7 +229,10 @@ public final class JsonNominatimClient implements NominatimClient {
     @Override
     public List<Address> search(final String query) throws IOException {
 
-        final String apiCall = String.format(searchUrl, URLEncoder.encode(query, "UTF-8"));
+    	RequestBuilder request = searchBuilder.instantiate();
+    	request.add("q", URLEncoder.encode(query, "UTF-8"));
+    	
+        final String apiCall = request.toString();
         LOGGER.debug("request url: {}", apiCall);
 
         final HttpGet req = new HttpGet(apiCall);
@@ -175,8 +249,11 @@ public final class JsonNominatimClient implements NominatimClient {
     @Override
     public Address getAddress(final double longitude, final double latitude) throws IOException {
 
-        final String apiCall = String.format(reverseGeocodingUrl, toString(latitude),
-                toString(longitude));
+    	RequestBuilder request = this.reverseGeocodingBuilder.instantiate();
+    	request.add("lat", toString(latitude));
+    	request.add("lon", toString(longitude));
+    	
+        final String apiCall = request.toString();
         LOGGER.debug("request url: {}", apiCall);
 
         final HttpGet req = new HttpGet(apiCall);

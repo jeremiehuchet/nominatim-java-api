@@ -74,8 +74,9 @@ public final class JsonNominatimClientTest {
 
         final HttpClient httpClient = new DefaultHttpClient(connexionManager, null);
 
+        final String baseUrl = PROPS.getProperty("nominatim.server.url");
         final String email = PROPS.getProperty("nominatim.headerEmail");
-        nominatimClient = new JsonNominatimClient(httpClient, email, null, false, true);
+        nominatimClient = new JsonNominatimClient(baseUrl, httpClient, email, null, false, true);
     }
 
     @Test

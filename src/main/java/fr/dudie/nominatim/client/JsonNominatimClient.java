@@ -73,12 +73,14 @@ public final class JsonNominatimClient implements NominatimClient {
      */
     public JsonNominatimClient(final HttpClient httpClient, final String email) {
 
-        this(httpClient, email, null, false, false);
+        this("http://nominatim.openstreetmap.org/", httpClient, email, null, false, false);
     }
 
     /**
      * Creates the json nominatim client.
      * 
+     * @param baseUrl
+     *            the nominatim server url
      * @param httpClient
      *            an HTTP client
      * @param email
@@ -90,13 +92,13 @@ public final class JsonNominatimClient implements NominatimClient {
      * @param polygon
      *            true to get results with polygon points
      */
-    public JsonNominatimClient(final HttpClient httpClient, final String email,
+    public JsonNominatimClient(final String baseUrl, final HttpClient httpClient, final String email,
             final BoundingBox searchBounds, final boolean strictBounds, final boolean polygon) {
 
         // prepare search URL template
         final StringBuilder searchUrlBuilder = new StringBuilder();
-        searchUrlBuilder
-                .append("http://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=%s&email=");
+        searchUrlBuilder.append(baseUrl);
+        searchUrlBuilder.append("/search?format=json&addressdetails=1&q=%s&email=");
         searchUrlBuilder.append(email);
         if (polygon) {
             searchUrlBuilder.append("&polygon=1");
@@ -119,8 +121,9 @@ public final class JsonNominatimClient implements NominatimClient {
 
         // prepare reverse geocoding URL template
         final StringBuilder reverseGeocodingUrlBuilder = new StringBuilder();
+        reverseGeocodingUrlBuilder.append(baseUrl);
         reverseGeocodingUrlBuilder
-                .append("http://nominatim.openstreetmap.org/reverse?format=json&addressdetails=1&lat=%s&lon=%s&email=");
+                .append("/reverse?format=json&addressdetails=1&lat=%s&lon=%s&email=");
         reverseGeocodingUrlBuilder.append(email);
         this.reverseGeocodingUrl = reverseGeocodingUrlBuilder.toString();
 

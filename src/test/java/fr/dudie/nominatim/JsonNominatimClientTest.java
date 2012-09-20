@@ -141,4 +141,19 @@ public final class JsonNominatimClientTest {
 
         LOGGER.info("testSearchWithResults.end");
     }
+    
+    @Test
+	public void testReverseLookUpZoomLevelCanBeControlled() throws Exception {
+		
+        LOGGER.info("testReverseLookUpZoomLevelCanBeControlled.start");
+
+        final Address highLevelAddress = nominatimClient.getAddress(-0.32, 51.44, 1);
+        assertEquals("United Kingdom", highLevelAddress.getDisplayName());
+        
+        final Address lowerLevelAddress = nominatimClient.getAddress(-0.32, 51.44, 10);
+        assertTrue(lowerLevelAddress.getPlaceId() != highLevelAddress.getPlaceId());
+        
+        LOGGER.info("testReverseLookUpZoomLevelCanBeControlled.end");
+
+	}
 }

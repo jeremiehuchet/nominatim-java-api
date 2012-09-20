@@ -178,8 +178,7 @@ public final class JsonNominatimClient implements NominatimClient {
     @Override
     public Address getAddress(final double longitude, final double latitude) throws IOException {
 
-        final String apiCall = String.format(reverseGeocodingUrl, toString(latitude),
-                toString(longitude));
+        final String apiCall = buildReverseGeocodingUrlFor(longitude, latitude);
         LOGGER.debug("request url: {}", apiCall);
 
         final HttpGet req = new HttpGet(apiCall);
@@ -187,7 +186,28 @@ public final class JsonNominatimClient implements NominatimClient {
         final Address address = httpClient.execute(req, defaultReverseGeocodingHandler);
         return address;
     }
+    
+    /**
+     * {@inheritDoc}
+     * 
+     * @see fr.dudie.nominatim.client.NominatimClient#getAddress(double, double, int)
+     */
+	@Override
+	public Address getAddress(double longitude, double latitude, int zoom) throws IOException {
 
+        final StringBuilder apiCallBuilder = new StringBuilder(buildReverseGeocodingUrlFor(longitude, latitude));
+        apiCallBuilder.append("&zoom=");
+        apiCallBuilder.append(Integer.toString(zoom));
+        
+        final String apiCall = apiCallBuilder.toString();
+        LOGGER.debug("request url: {}", apiCall);
+        
+        final HttpGet req = new HttpGet(apiCall);
+
+        final Address address = httpClient.execute(req, defaultReverseGeocodingHandler);
+        return address;
+	}
+    
     /**
      * {@inheritDoc}
      * 
@@ -200,6 +220,19 @@ public final class JsonNominatimClient implements NominatimClient {
     }
 
     /**
+     * Builds the full url for a reverse geocoding api call
+     * 
+     * @param longitude
+     * @param latitude
+     * @return the reverse geocoding api call url
+     */
+    private String buildReverseGeocodingUrlFor(final double longitude,
+			final double latitude) {
+		return String.format(reverseGeocodingUrl, toString(latitude),
+	            toString(longitude));
+	}
+
+	/**
      * Gets the string representation of a double value.
      * 
      * @param value

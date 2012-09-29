@@ -49,8 +49,7 @@ public interface NominatimClient {
      *             a communication error occurred
      */
     Address getAddress(final double longitude, final double latitude) throws IOException;
-
-
+    
     /**
      * Reverse geocode the given coordinates using a specific zoom level
      * 
@@ -81,4 +80,18 @@ public interface NominatimClient {
      *             a communication error occurred
      */
     Address getAddress(final int longitudeE6, final int latitudeE6) throws IOException;
+    
+	/**
+     * Reverse geocode the given OSM id.
+     *           
+	 * @param type
+	 * 			An OSM type [N|W|R]
+	 * @param id 			
+	 * 			An OSM id
+	 * @return an address corresponding to the given osm type and id pair or <code>null</code> if
+     *         no result found
+	 * @throws IOException
+	 */
+	Address getAddress(String type, long id) throws IOException;
+	
 }

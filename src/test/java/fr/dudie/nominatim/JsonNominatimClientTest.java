@@ -156,4 +156,18 @@ public final class JsonNominatimClientTest {
         LOGGER.info("testReverseLookUpZoomLevelCanBeControlled.end");
 
 	}
+    
+    @Test
+	public void testReverseLookUpTypeOsmId() throws Exception {
+    	
+        LOGGER.info("testReverseLookUpTypeOsmId");
+        
+        final Address address = nominatimClient.getAddress("W", 26932726);
+        assertEquals("Eel Pie Island, Thames Path, Ham, London Borough of Richmond upon Thames, Greater London, London, England, TW1 3DT, United Kingdom", address.getDisplayName());
+        assertEquals("way", address.getOsmType());
+        assertEquals("26932726", address.getOsmId());
+        
+        LOGGER.info("testReverseLookUpTypeOsmId");
+	}
+    
 }

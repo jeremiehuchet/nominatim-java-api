@@ -35,7 +35,7 @@ public interface NominatimClient {
      *             a communication error occurred
      */
     List<Address> search(String query) throws IOException;
-    
+
     /**
      * Reverse geocode the given coordinates.
      * 
@@ -48,8 +48,8 @@ public interface NominatimClient {
      * @throws IOException
      *             a communication error occurred
      */
-    Address getAddress(final double longitude, final double latitude) throws IOException;
-    
+    Address getAddress(double longitude, double latitude) throws IOException;
+
     /**
      * Reverse geocode the given coordinates using a specific zoom level
      * 
@@ -64,8 +64,8 @@ public interface NominatimClient {
      * @throws IOException
      *             a communication error occurred
      */
-    Address getAddress(final double longitude, final double latitude, int zoom) throws IOException;
-    
+    Address getAddress(double longitude, double latitude, int zoom) throws IOException;
+
     /**
      * A convenience method to do the same as {@link #getAddress(double, double)} but with int E6
      * latitude and longitude.
@@ -79,19 +79,19 @@ public interface NominatimClient {
      * @throws IOException
      *             a communication error occurred
      */
-    Address getAddress(final int longitudeE6, final int latitudeE6) throws IOException;
-    
-	/**
+    Address getAddress(int longitudeE6, int latitudeE6) throws IOException;
+
+    /**
      * Reverse geocode the given OSM id.
-     *           
-	 * @param type
-	 * 			An OSM type [N|W|R]
-	 * @param id 			
-	 * 			An OSM id
-	 * @return an address corresponding to the given osm type and id pair or <code>null</code> if
-     *         no result found
-	 * @throws IOException
-	 */
-	Address getAddress(String type, long id) throws IOException;
-	
+     * 
+     * @param type
+     *            An OSM type [N|W|R]
+     * @param id
+     *            An OSM id
+     * @return an address corresponding to the given osm type and id pair or <code>null</code> if no
+     *         result found
+     * @throws IOException
+     */
+    Address getAddress(String type, long id) throws IOException;
+
 }

@@ -141,33 +141,35 @@ public final class JsonNominatimClientTest {
 
         LOGGER.info("testSearchWithResults.end");
     }
-    
+
     @Test
-	public void testReverseLookUpZoomLevelCanBeControlled() throws Exception {
-		
+    public void testReverseLookUpZoomLevelCanBeControlled() throws Exception {
+
         LOGGER.info("testReverseLookUpZoomLevelCanBeControlled.start");
 
         final Address highLevelAddress = nominatimClient.getAddress(-0.32, 51.44, 1);
         assertEquals("United Kingdom", highLevelAddress.getDisplayName());
-        
+
         final Address lowerLevelAddress = nominatimClient.getAddress(-0.32, 51.44, 10);
         assertTrue(lowerLevelAddress.getPlaceId() != highLevelAddress.getPlaceId());
-        
+
         LOGGER.info("testReverseLookUpZoomLevelCanBeControlled.end");
 
-	}
-    
+    }
+
     @Test
-	public void testReverseLookUpTypeOsmId() throws Exception {
-    	
+    public void testReverseLookUpTypeOsmId() throws Exception {
+
         LOGGER.info("testReverseLookUpTypeOsmId");
-        
+
         final Address address = nominatimClient.getAddress("W", 26932726);
-        assertEquals("Eel Pie Island, Thames Path, Ham, London Borough of Richmond upon Thames, Greater London, London, England, TW1 3DT, United Kingdom", address.getDisplayName());
+        assertEquals(
+                "Eel Pie Island, Thames Path, Ham, London Borough of Richmond upon Thames, Greater London, London, England, TW1 3DT, United Kingdom",
+                address.getDisplayName());
         assertEquals("way", address.getOsmType());
         assertEquals("26932726", address.getOsmId());
-        
+
         LOGGER.info("testReverseLookUpTypeOsmId");
-	}
-    
+    }
+
 }

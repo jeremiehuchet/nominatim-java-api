@@ -54,7 +54,13 @@ public final class JsonNominatimClient implements NominatimClient {
     private final String searchUrl;
 
     /** The url to make a query for a latitude/longitude reverse geocoding. */
-    private final String reverseGeocodingUrl;
+    private final String reverseGeocodingUrlByLonLat;
+
+    /** The url to make a query for a latitude/longitude/zoom reverse geocoding. */
+    private final String reverseGeocodingUrlByLonLatZoom;
+
+    /** The url to make a query for a type/id reverse geocoding. */
+    private final String reverseGeocodingUrlByTypeId;
 
     /** The HTTP client. */
     private final HttpClient httpClient;
@@ -123,17 +129,19 @@ public final class JsonNominatimClient implements NominatimClient {
         }
         this.searchUrl = searchUrlBuilder.toString();
 
-        // prepare reverse geocoding URL template
-        final StringBuilder reverseGeocodingUrlBuilder = new StringBuilder();
-        reverseGeocodingUrlBuilder.append(baseUrl);
-        reverseGeocodingUrlBuilder
-                .append("/reverse?format=json&addressdetails=1&lat=%s&lon=%s&osm_type=%s&osm_id=%s&email=");
-        reverseGeocodingUrlBuilder.append(email);
-        this.reverseGeocodingUrl = reverseGeocodingUrlBuilder.toString();
+        // prepare reverse geocoding URL templates
+        this.reverseGeocodingUrlByLonLat = buildReverseGeocodingUrlFor(baseUrl, email,
+                "&lat=%s&lon=%s");
+        this.reverseGeocodingUrlByLonLatZoom = buildReverseGeocodingUrlFor(baseUrl, email,
+                "&lat=%s&lon=%s&zoom=%s");
+        this.reverseGeocodingUrlByTypeId = buildReverseGeocodingUrlFor(baseUrl, email,
+                "&osm_type=%s&osm_id=%s");
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("API search URL: {}", searchUrl);
-            LOGGER.debug("API reverse geocoding URL: {}", reverseGeocodingUrl);
+            LOGGER.debug("API reverse geocoding URL: {}", reverseGeocodingUrlByLonLat);
+            LOGGER.debug("API reverse geocoding URL: {}", reverseGeocodingUrlByLonLatZoom);
+            LOGGER.debug("API reverse geocoding URL: {}", reverseGeocodingUrlByTypeId);
         }
 
         // prepare gson instance
@@ -155,6 +163,29 @@ public final class JsonNominatimClient implements NominatimClient {
                 }.getType());
         defaultReverseGeocodingHandler = new NominatimResponseHandler<Address>(gsonInstance,
                 Address.class);
+    }
+
+    /**
+     * Generates the reverse geocoding URL with the given parameters.
+     * 
+     * @param baseUrl
+     *            the reverse geocoding base URL
+     * @param email
+     *            the email (see http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy)
+     * @param additionalParams
+     *            the additional parameters
+     * @return
+     */
+    private String buildReverseGeocodingUrlFor(final String baseUrl, final String email,
+            final String additionalParams) {
+
+        final StringBuilder reverseGeocodingUrlBuilder = new StringBuilder();
+        reverseGeocodingUrlBuilder.append(baseUrl);
+        reverseGeocodingUrlBuilder.append("/reverse?format=json&addressdetails=1&email=");
+        reverseGeocodingUrlBuilder.append(email);
+        reverseGeocodingUrlBuilder.append(additionalParams);
+
+        return reverseGeocodingUrlBuilder.toString();
     }
 
     /**
@@ -182,7 +213,8 @@ public final class JsonNominatimClient implements NominatimClient {
     @Override
     public Address getAddress(final double longitude, final double latitude) throws IOException {
 
-        final String apiCall = buildReverseGeocodingUrlFor(longitude, latitude);
+        final String apiCall = String.format(reverseGeocodingUrlByLonLat, toString(latitude),
+                toString(longitude));
         LOGGER.debug("request url: {}", apiCall);
 
         final HttpGet req = new HttpGet(apiCall);
@@ -200,12 +232,8 @@ public final class JsonNominatimClient implements NominatimClient {
     public Address getAddress(final double longitude, final double latitude, final int zoom)
             throws IOException {
 
-        final StringBuilder apiCallBuilder = new StringBuilder(buildReverseGeocodingUrlFor(
-                longitude, latitude));
-        apiCallBuilder.append("&zoom=");
-        apiCallBuilder.append(Integer.toString(zoom));
-
-        final String apiCall = apiCallBuilder.toString();
+        final String apiCall = String.format(reverseGeocodingUrlByLonLatZoom, toString(latitude),
+                toString(longitude), Integer.toString(zoom));
         LOGGER.debug("request url: {}", apiCall);
 
         final HttpGet req = new HttpGet(apiCall);
@@ -233,31 +261,13 @@ public final class JsonNominatimClient implements NominatimClient {
     @Override
     public Address getAddress(final String type, final long id) throws IOException {
 
-        final String apiCall = buildReverseGeocodingUrlFor(type, id);
+        final String apiCall = String.format(reverseGeocodingUrlByTypeId, type, toString(id));
         LOGGER.debug("request url: {}", apiCall);
 
         final HttpGet req = new HttpGet(apiCall);
 
         final Address address = httpClient.execute(req, defaultReverseGeocodingHandler);
         return address;
-    }
-
-    /**
-     * Builds the full url for a latitude/longitude reverse geocoding api call
-     * 
-     * @param longitude
-     * @param latitude
-     * @return the reverse geocoding api call url
-     */
-    private String buildReverseGeocodingUrlFor(final double longitude, final double latitude) {
-
-        return String.format(reverseGeocodingUrl, toString(latitude), toString(longitude),
-                EMPTY_STRING, EMPTY_STRING);
-    }
-
-    private String buildReverseGeocodingUrlFor(final String type, final long id) {
-
-        return String.format(reverseGeocodingUrl, EMPTY_STRING, EMPTY_STRING, type, toString(id));
     }
 
     /**

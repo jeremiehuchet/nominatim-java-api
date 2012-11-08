@@ -86,7 +86,8 @@ public final class JsonNominatimClient implements NominatimClient {
      * @param httpClient
      *            an HTTP client
      * @param email
-     *            an email to add in the HTTP requests parameters to "sign" them
+     *            an email to add in the HTTP requests parameters to "sign" them (see
+     *            http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy)
      * @param searchBounds
      *            the prefered search bounds
      * @param strictBounds
@@ -125,7 +126,7 @@ public final class JsonNominatimClient implements NominatimClient {
         final StringBuilder reverseGeocodingUrlBuilder = new StringBuilder();
         reverseGeocodingUrlBuilder.append(baseUrl);
         reverseGeocodingUrlBuilder
-                .append("/reverse?format=json&addressdetails=1&lat=%s&lon=%s&email=&osm_type=%s&osm_id=%s");
+                .append("/reverse?format=json&addressdetails=1&lat=%s&lon=%s&osm_type=%s&osm_id=%s&email=");
         reverseGeocodingUrlBuilder.append(email);
         this.reverseGeocodingUrl = reverseGeocodingUrlBuilder.toString();
         

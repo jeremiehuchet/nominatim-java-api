@@ -2,6 +2,10 @@ h1. Nominatim Java API
 
 This library provides a client for "Nominatim":http://wiki.openstreetmap.org/wiki/Nominatim. This API provides search and reverse geocoding operations. 
 
+*Note that it is fair and reasonable to specify an email address when using the Nominatim API*, see the "Notminatim Usage Policy":http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy for more informations.
+
+bq. If you are sending in large numbers of requests it is particularly important that we have some way of contacting you - otherwise, in the event of problems, the only alternative is to ban your IP and wait for you to contact us.
+
 h2. Java & Android
 
 This library is fully compatible with Android. The @pom.xml@ file has two profiles: 
@@ -12,10 +16,13 @@ Please ask for enhancements and report bugs on "Github tracker":https://github.c
 
 h2. Features
 
-1.0
-* string searches
-* reverse geocoding
+2.0
+* Use gson to deserialize Nominatim responses
 
 1.0.1
 * Expose the OpenStreetMap place_id field on the Address class. [Tony McCrae]
+
+1.0
+* string searches
+* reverse geocoding
 

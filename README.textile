@@ -16,6 +16,12 @@ Please ask for enhancements and report bugs on "Github tracker":https://github.c
 
 h2. Features
 
+2.0.1
+* Bug #6 The bounding box values are incorrect
+* Enhancement #1 Make the API URL customizable
+* Pull-request #2 Addition of place_id field to Address
+* Pull-request #5 Additional reverse look up methods
+
 2.0
 * Use gson to deserialize Nominatim responses
 

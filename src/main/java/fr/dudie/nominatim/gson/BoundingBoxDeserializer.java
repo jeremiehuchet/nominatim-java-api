@@ -21,10 +21,10 @@ import fr.dudie.nominatim.model.BoundingBox;
  * 
  * <pre>
  *     "boundingbox": [
- *         "48.1190567016602",
- *         "48.1191635131836",
- *         "-1.6499342918396",
- *         "-1.64988231658936"
+ *         "48.1190567016602", S
+ *         "48.1191635131836", N
+ *         "-1.6499342918396", W
+ *         "-1.64988231658936" E
  *     ],
  * </pre>
  * 
@@ -50,10 +50,10 @@ public final class BoundingBoxDeserializer implements JsonDeserializer<BoundingB
         if (json.isJsonArray()) {
             final JsonArray bboxJsonArray = json.getAsJsonArray();
             bbox = new BoundingBox();
-            bbox.setEast(bboxJsonArray.get(0).getAsDouble());
-            bbox.setWest(bboxJsonArray.get(1).getAsDouble());
-            bbox.setNorth(bboxJsonArray.get(2).getAsDouble());
-            bbox.setSouth(bboxJsonArray.get(3).getAsDouble());
+            bbox.setSouth(bboxJsonArray.get(0).getAsDouble());
+            bbox.setNorth(bboxJsonArray.get(1).getAsDouble());
+            bbox.setWest(bboxJsonArray.get(2).getAsDouble());
+            bbox.setEast(bboxJsonArray.get(3).getAsDouble());
         } else {
             throw new JsonParseException("Unexpected data: " + json.toString());
         }

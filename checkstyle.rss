@@ -6,11 +6,11 @@
     <link>http://kops.github.com/nominatim-java-api</link>
     <description>Nominatim Java API client - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2011</copyright>
+    <copyright>&#169;2013</copyright>
     <item>
-      <title>File: 9,
+      <title>File: 11,
              Errors: 0,
-             Warnings: 28,
+             Warnings: 30,
              Infos: 0
       </title>
             <link>http://kops.github.com/nominatim-java-api/checkstyle.html</link>
@@ -43,63 +43,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://kops.github.com/nominatim-java-api/checkstyle.html#fr.dudie.nominatim.client.JsonNominatimClient.java">fr/dudie/nominatim/client/JsonNominatimClient.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  7
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://kops.github.com/nominatim-java-api/checkstyle.html#fr.dudie.nominatim.client.NominatimClient.java">fr/dudie/nominatim/client/NominatimClient.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://kops.github.com/nominatim-java-api/checkstyle.html#fr.dudie.nominatim.client.ReverseGeocodingResponseHandler.java">fr/dudie/nominatim/client/ReverseGeocodingResponseHandler.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://kops.github.com/nominatim-java-api/checkstyle.html#fr.dudie.nominatim.model.PolygonPoint.java">fr/dudie/nominatim/model/PolygonPoint.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  4
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://kops.github.com/nominatim-java-api/checkstyle.html#fr.dudie.nominatim.client.NominatimSearchResponseHandler.java">fr/dudie/nominatim/client/NominatimSearchResponseHandler.java</a>
+                  <a href="http://kops.github.com/nominatim-java-api/checkstyle.html#fr.dudie.nominatim.gson.BoundingBoxDeserializer.java">fr/dudie/nominatim/gson/BoundingBoxDeserializer.java</a>
                 </td>
                 <td>
                   0
@@ -113,7 +57,21 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://kops.github.com/nominatim-java-api/checkstyle.html#fr.dudie.nominatim.model.Address.java">fr/dudie/nominatim/model/Address.java</a>
+                  <a href="http://kops.github.com/nominatim-java-api/checkstyle.html#fr.dudie.nominatim.gson.ArrayOfAddressElementsDeserializer.java">fr/dudie/nominatim/gson/ArrayOfAddressElementsDeserializer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://kops.github.com/nominatim-java-api/checkstyle.html#fr.dudie.nominatim.client.JsonNominatimClient.java">fr/dudie/nominatim/client/JsonNominatimClient.java</a>
                 </td>
                 <td>
                   0
@@ -127,13 +85,83 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://kops.github.com/nominatim-java-api/checkstyle.html#fr.dudie.nominatim.client.NominatimJsonUtils.java">fr/dudie/nominatim/client/NominatimJsonUtils.java</a>
+                  <a href="http://kops.github.com/nominatim-java-api/checkstyle.html#fr.dudie.nominatim.client.NominatimClient.java">fr/dudie/nominatim/client/NominatimClient.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  3
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://kops.github.com/nominatim-java-api/checkstyle.html#fr.dudie.nominatim.model.PolygonPoint.java">fr/dudie/nominatim/model/PolygonPoint.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://kops.github.com/nominatim-java-api/checkstyle.html#fr.dudie.nominatim.client.NominatimResponseHandler.java">fr/dudie/nominatim/client/NominatimResponseHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://kops.github.com/nominatim-java-api/checkstyle.html#fr.dudie.nominatim.model.Address.java">fr/dudie/nominatim/model/Address.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://kops.github.com/nominatim-java-api/checkstyle.html#fr.dudie.nominatim.gson.PolygonPointDeserializer.java">fr/dudie/nominatim/gson/PolygonPointDeserializer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://kops.github.com/nominatim-java-api/checkstyle.html#fr.dudie.nominatim.gson.ArrayOfPolygonPointsDeserializer.java">fr/dudie/nominatim/gson/ArrayOfPolygonPointsDeserializer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   0

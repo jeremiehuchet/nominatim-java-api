@@ -98,20 +98,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses />.
             </activation>
             <properties>
                 <httpcomponents.version>4.0.2</httpcomponents.version>
-                <org-json.version>20070829</org-json.version>
             </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.apache.httpcomponents</groupId>
                     <artifactId>httpclient</artifactId>
                     <version>${httpcomponents.version}</version>
-                    <type>jar</type>
-                    <scope>compile</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.json</groupId>
-                    <artifactId>json</artifactId>
-                    <version>${org-json.version}</version>
                     <type>jar</type>
                     <scope>compile</scope>
                 </dependency>

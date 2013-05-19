@@ -16,11 +16,14 @@ Please ask for enhancements and report bugs on "Github tracker":https://github.c
 
 h2. Features
 
+2.0.2
+* Issue "#7":https://github.com/kops/nominatim-java-api/issues/7 Remove @org.json:json@ dependency
+
 2.0.1
-* Bug #6 The bounding box values are incorrect
-* Enhancement #1 Make the API URL customizable
-* Pull-request #2 Addition of place_id field to Address
-* Pull-request #5 Additional reverse look up methods
+* Bug "#6":https://github.com/kops/nominatim-java-api/issues/6 The bounding box values are incorrect
+* Enhancement "#1":https://github.com/kops/nominatim-java-api/issues/1 Make the API URL customizable
+* Pull-request "#2":https://github.com/kops/nominatim-java-api/pull/2 Addition of place_id field to Address (from tonytw1)
+* Pull-request "#5":https://github.com/kops/nominatim-java-api/pull/5 Additional reverse look up methods (from tonytw1)
 
 2.0
 * Use gson to deserialize Nominatim responses

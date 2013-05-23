@@ -53,50 +53,53 @@ public final class Address {
 
     /** The OpenStreetMap place id. */
     @SerializedName("place_id")
-    private long placeId;
+    private long             placeId;
 
     /** The data licence. */
-    private String licence;
+    private String           licence;
 
     /** The OpenStreetMap type (way, node...). */
     @SerializedName("osm_type")
-    private String osmType;
+    private String           osmType;
 
     /** The OpenStreetMap identifier. */
     @SerializedName("osm_id")
-    private String osmId;
+    private String           osmId;
 
     /** The bounding box enclosing the element. */
     @SerializedName("boundingbox")
-    private BoundingBox boundingBox;
+    private BoundingBox      boundingBox;
 
     /** The polygon points representing the element. */
     @SerializedName("polygonpoints")
-    private PolygonPoint[] polygonPoints;
+    private PolygonPoint[]   polygonPoints;
 
     /** The address longitude. */
     @SerializedName("lon")
-    private double longitude;
+    private double           longitude;
 
     /** The address latitude. */
     @SerializedName("lat")
-    private double latitude;
+    private double           latitude;
 
     /** The address display name. */
     @SerializedName("display_name")
-    private String displayName;
+    private String           displayName;
 
     /** The OpenStreetMap element class (ex: highway). */
     @SerializedName("class")
-    private String elementClass;
+    private String           elementClass;
 
     /** The OpenStreetMap element type (ex: residential). */
     @SerializedName("type")
-    private String elementType;
+    private String           elementType;
 
     /** The elements describing the address (ex: road, city, coutry...). */
     @SerializedName("address")
     private AddressElement[] addressElements;
+
+    @SerializedName("ref")
+    private String           ref;
 
     /**
      * Gets the OpenStreetMap place id.
@@ -111,8 +114,7 @@ public final class Address {
     /**
      * Sets the OpenStreetMap place id.
      * 
-     * @param placeId
-     *            the OpenStreetMap place id to set
+     * @param placeId the OpenStreetMap place id to set
      */
     public void setPlaceId(final long placeId) {
 
@@ -132,8 +134,7 @@ public final class Address {
     /**
      * Sets the data licence.
      * 
-     * @param licence
-     *            the data licence to set
+     * @param licence the data licence to set
      */
     public void setLicence(final String licence) {
 
@@ -153,8 +154,7 @@ public final class Address {
     /**
      * Sets the OpenStreetMap type.
      * 
-     * @param osmType
-     *            the OpenStreetMap type to set
+     * @param osmType the OpenStreetMap type to set
      */
     public void setOsmType(final String osmType) {
 
@@ -174,8 +174,7 @@ public final class Address {
     /**
      * Sets the OpenStreetMap identifier.
      * 
-     * @param osmId
-     *            the OpenStreetMap identifier to set
+     * @param osmId the OpenStreetMap identifier to set
      */
     public void setOsmId(final String osmId) {
 
@@ -195,8 +194,7 @@ public final class Address {
     /**
      * Sets the bounding box enclosing the element.
      * 
-     * @param boundingBox
-     *            the bounding box enclosing the element to set
+     * @param boundingBox the bounding box enclosing the element to set
      */
     public void setBoundingBox(final BoundingBox boundingBox) {
 
@@ -216,8 +214,7 @@ public final class Address {
     /**
      * Sets the polygon points representing the element.
      * 
-     * @param polygonPoints
-     *            the polygon points representing the element to set
+     * @param polygonPoints the polygon points representing the element to set
      */
     public void setPolygonPoints(final PolygonPoint[] polygonPoints) {
 
@@ -247,8 +244,7 @@ public final class Address {
     /**
      * Sets the address longitude.
      * 
-     * @param longitude
-     *            the address longitude to set
+     * @param longitude the address longitude to set
      */
     public void setLongitude(final double longitude) {
 
@@ -258,8 +254,7 @@ public final class Address {
     /**
      * Sets the address longitude.
      * 
-     * @param longitude
-     *            the address longitude to set
+     * @param longitude the address longitude to set
      */
     public void setLongitudeE6(final int longitude) {
 
@@ -289,8 +284,7 @@ public final class Address {
     /**
      * Sets the address latitude.
      * 
-     * @param latitude
-     *            the address latitude to set
+     * @param latitude the address latitude to set
      */
     public void setLatitude(final double latitude) {
 
@@ -300,8 +294,7 @@ public final class Address {
     /**
      * Sets the address latitude.
      * 
-     * @param latitude
-     *            the address latitude to set
+     * @param latitude the address latitude to set
      */
     public void setLatitudeE6(final int latitude) {
 
@@ -321,8 +314,7 @@ public final class Address {
     /**
      * Sets the address display name.
      * 
-     * @param displayName
-     *            the address display name to set
+     * @param displayName the address display name to set
      */
     public void setDisplayName(final String displayName) {
 
@@ -342,8 +334,7 @@ public final class Address {
     /**
      * Sets the OpenStreetMap element class (ex: highway).
      * 
-     * @param elementClass
-     *            the OpenStreetMap element class (ex: highway) to set
+     * @param elementClass the OpenStreetMap element class (ex: highway) to set
      */
     public void setElementClass(final String elementClass) {
 
@@ -363,8 +354,7 @@ public final class Address {
     /**
      * Sets the penStreetMap element type (ex: residential).
      * 
-     * @param elementType
-     *            the penStreetMap element type (ex: residential) to set
+     * @param elementType the penStreetMap element type (ex: residential) to set
      */
     public void setElementType(final String elementType) {
 
@@ -384,12 +374,19 @@ public final class Address {
     /**
      * Sets the elements describing the address (ex: road, city, coutry...).
      * 
-     * @param address
-     *            the elements describing the address (ex: road, city, coutry...) to set
+     * @param address the elements describing the address (ex: road, city, coutry...) to set
      */
     public void setAddressElements(final AddressElement[] addressElements) {
 
         this.addressElements = addressElements;
+    }
+
+    public String getRef() {
+        return ref;
+    }
+
+    public void setRef(String ref) {
+        this.ref = ref;
     }
 
 }

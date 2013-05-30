@@ -3,7 +3,7 @@ package fr.dudie.nominatim.model;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Represents a searche result.
+ * Represents a search result.
  * 
  * <pre>
  * {

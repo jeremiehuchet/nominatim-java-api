@@ -42,8 +42,6 @@ import fr.dudie.nominatim.model.PolygonPoint;
  */
 public final class JsonNominatimClient implements NominatimClient {
 
-    private static final String EMPTY_STRING = "";
-
     /** The event logger. */
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonNominatimClient.class);
 
@@ -104,6 +102,35 @@ public final class JsonNominatimClient implements NominatimClient {
     public JsonNominatimClient(final String baseUrl, final HttpClient httpClient,
             final String email, final BoundingBox searchBounds, final boolean strictBounds,
             final boolean polygon) {
+        this("http://nominatim.openstreetmap.org/", httpClient, email, null, false, false, null);
+    }
+
+    /**
+     * Creates the json nominatim client.
+     * 
+     * @param baseUrl
+     *            the nominatim server url
+     * @param httpClient
+     *            an HTTP client
+     * @param email
+     *            an email to add in the HTTP requests parameters to "sign" them
+     *            (see http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy)
+     * @param searchBounds
+     *            the prefered search bounds
+     * @param strictBounds
+     *            set to true if you want the results to be located into the
+     *            given bounding box
+     * @param polygon
+     *            true to get results with polygon points
+     * @param acceptLanguage
+     *            Preferred language order for showing search results, overrides
+     *            the browser value.<br/>
+     *            Either uses standard rfc2616 accept-language string or a
+     *            simple comma separated list of language codes.
+     */
+    public JsonNominatimClient(final String baseUrl, final HttpClient httpClient,
+            final String email, final BoundingBox searchBounds, final boolean strictBounds,
+            final boolean polygon, final String acceptLanguage) {
 
         // prepare search URL template
         final StringBuilder searchUrlBuilder = new StringBuilder();
@@ -127,15 +154,19 @@ public final class JsonNominatimClient implements NominatimClient {
                 searchUrlBuilder.append("&bounded=1");
             }
         }
+
+        if (acceptLanguage != null) {
+            searchUrlBuilder.append("&accept-language=").append(acceptLanguage);
+        }
         this.searchUrl = searchUrlBuilder.toString();
 
         // prepare reverse geocoding URL templates
         this.reverseGeocodingUrlByLonLat = buildReverseGeocodingUrlFor(baseUrl, email,
-                "&lat=%s&lon=%s");
+                acceptLanguage, "&lat=%s&lon=%s");
         this.reverseGeocodingUrlByLonLatZoom = buildReverseGeocodingUrlFor(baseUrl, email,
-                "&lat=%s&lon=%s&zoom=%s");
+                acceptLanguage, "&lat=%s&lon=%s&zoom=%s");
         this.reverseGeocodingUrlByTypeId = buildReverseGeocodingUrlFor(baseUrl, email,
-                "&osm_type=%s&osm_id=%s");
+                acceptLanguage, "&osm_type=%s&osm_id=%s");
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("API search URL: {}", searchUrl);
@@ -172,17 +203,22 @@ public final class JsonNominatimClient implements NominatimClient {
      *            the reverse geocoding base URL
      * @param email
      *            the email (see http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy)
+     * @param acceptLanguage
+     *            optional accept-language value, may be null
      * @param additionalParams
      *            the additional parameters
      * @return
      */
     private String buildReverseGeocodingUrlFor(final String baseUrl, final String email,
-            final String additionalParams) {
+            final String acceptLanguage, final String additionalParams) {
 
         final StringBuilder reverseGeocodingUrlBuilder = new StringBuilder();
         reverseGeocodingUrlBuilder.append(baseUrl);
         reverseGeocodingUrlBuilder.append("/reverse?format=json&addressdetails=1&email=");
         reverseGeocodingUrlBuilder.append(email);
+        if (acceptLanguage != null) {
+            reverseGeocodingUrlBuilder.append("&accept-language=").append(acceptLanguage);
+        }
         reverseGeocodingUrlBuilder.append(additionalParams);
 
         return reverseGeocodingUrlBuilder.toString();

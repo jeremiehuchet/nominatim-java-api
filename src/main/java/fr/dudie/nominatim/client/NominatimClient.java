@@ -19,7 +19,7 @@ import java.util.List;
 import fr.dudie.nominatim.model.Address;
 
 /**
- * Interface to use the Google Maps Service.
+ * Interface to use the Nominatim Service.
  * 
  * @author Jérémie Huchet
  */

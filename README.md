@@ -1,4 +1,3 @@
-
 Nominatim Java API
 ==================
 
@@ -21,6 +20,9 @@ Please ask for enhancements and report bugs on [Github tracker](https://github.c
 
 Features
 --------
+
+next-release
+* Issue #11 wrong documentation
 
 2.0.2
 * Issue #7 Remove `org.json:json` dependency

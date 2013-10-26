@@ -16,14 +16,45 @@ package fr.dudie.nominatim.client;
 import java.io.IOException;
 import java.util.List;
 
+import fr.dudie.nominatim.client.request.NominatimReverseRequest;
+import fr.dudie.nominatim.client.request.NominatimSearchRequest;
 import fr.dudie.nominatim.model.Address;
 
 /**
  * Interface to use the Nominatim Service.
  * 
  * @author Jérémie Huchet
+ * @since 1.0
  */
 public interface NominatimClient {
+
+    /**
+     * Search for addresses.
+     * 
+     * @param search
+     *            the search request parameters
+     * @return a list of results
+     * @throws IOException
+     *             a communication error occurred
+     * @since 3.0
+     */
+    List<Address> search(NominatimSearchRequest search) throws IOException;
+
+    /**
+     * Reverse geocoding request.
+     * 
+     * @param reverse
+     *            a reverse geocoding request
+     * @return an address corresponding to the given longitude and latitude or <code>null</code> if no result found
+     * @throws IOException
+     *             a communication error occurred
+     * @since 3.0
+     */
+    Address getAddress(NominatimReverseRequest reverse) throws IOException;
+
+    /*
+     * DEPRECATED API
+     */
 
     /**
      * Search for results with the given query.
@@ -33,6 +64,8 @@ public interface NominatimClient {
      * @return a list of results
      * @throws IOException
      *             a communication error occurred
+     * @since 1.0
+     * @deprecated Now you should use {@link #search(NominatimSearchRequest)}
      */
     @Deprecated
     List<Address> search(String query) throws IOException;
@@ -48,6 +81,8 @@ public interface NominatimClient {
      *         no result found
      * @throws IOException
      *             a communication error occurred
+     * @since 1.0
+     * @deprecated Now you should use {@link #getAddress(NominatimReverseRequest)}
      */
     @Deprecated
     Address getAddress(double longitude, double latitude) throws IOException;
@@ -65,6 +100,8 @@ public interface NominatimClient {
      *         no result found
      * @throws IOException
      *             a communication error occurred
+     * @since 2.0.1
+     * @deprecated Now you should use {@link #getAddress(NominatimReverseRequest)}
      */
     @Deprecated
     Address getAddress(double longitude, double latitude, int zoom) throws IOException;
@@ -81,6 +118,8 @@ public interface NominatimClient {
      *         no result found
      * @throws IOException
      *             a communication error occurred
+     * @since 1.0
+     * @deprecated Now you should use {@link #getAddress(NominatimReverseRequest)}
      */
     @Deprecated
     Address getAddress(int longitudeE6, int latitudeE6) throws IOException;
@@ -95,6 +134,8 @@ public interface NominatimClient {
      * @return an address corresponding to the given osm type and id pair or <code>null</code> if no
      *         result found
      * @throws IOException
+     * @since 2.0.1
+     * @deprecated Now you should use {@link #getAddress(NominatimReverseRequest)}
      */
     @Deprecated
     Address getAddress(String type, long id) throws IOException;

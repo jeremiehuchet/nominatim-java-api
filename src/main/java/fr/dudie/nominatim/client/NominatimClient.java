@@ -34,6 +34,7 @@ public interface NominatimClient {
      * @throws IOException
      *             a communication error occurred
      */
+    @Deprecated
     List<Address> search(String query) throws IOException;
 
     /**
@@ -48,6 +49,7 @@ public interface NominatimClient {
      * @throws IOException
      *             a communication error occurred
      */
+    @Deprecated
     Address getAddress(double longitude, double latitude) throws IOException;
 
     /**
@@ -64,6 +66,7 @@ public interface NominatimClient {
      * @throws IOException
      *             a communication error occurred
      */
+    @Deprecated
     Address getAddress(double longitude, double latitude, int zoom) throws IOException;
 
     /**
@@ -79,6 +82,7 @@ public interface NominatimClient {
      * @throws IOException
      *             a communication error occurred
      */
+    @Deprecated
     Address getAddress(int longitudeE6, int latitudeE6) throws IOException;
 
     /**
@@ -92,6 +96,7 @@ public interface NominatimClient {
      *         result found
      * @throws IOException
      */
+    @Deprecated
     Address getAddress(String type, long id) throws IOException;
 
 }

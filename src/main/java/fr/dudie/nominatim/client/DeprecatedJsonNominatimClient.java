@@ -26,6 +26,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import fr.dudie.nominatim.client.request.NominatimReverseRequest;
+import fr.dudie.nominatim.client.request.NominatimSearchRequest;
 import fr.dudie.nominatim.gson.ArrayOfAddressElementsDeserializer;
 import fr.dudie.nominatim.gson.ArrayOfPolygonPointsDeserializer;
 import fr.dudie.nominatim.gson.BoundingBoxDeserializer;
@@ -40,7 +42,8 @@ import fr.dudie.nominatim.model.PolygonPoint;
  * 
  * @author Jérémie Huchet
  */
-public final class JsonNominatimClient implements NominatimClient {
+@Deprecated
+final class DeprecatedJsonNominatimClient implements NominatimClient {
 
     /** The event logger. */
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonNominatimClient.class);
@@ -77,7 +80,7 @@ public final class JsonNominatimClient implements NominatimClient {
      * @param email
      *            an email to add in the HTTP requests parameters to "sign" them
      */
-    public JsonNominatimClient(final HttpClient httpClient, final String email) {
+    public DeprecatedJsonNominatimClient(final HttpClient httpClient, final String email) {
 
         this("http://nominatim.openstreetmap.org/", httpClient, email, null, false, false);
     }
@@ -99,10 +102,10 @@ public final class JsonNominatimClient implements NominatimClient {
      * @param polygon
      *            true to get results with polygon points
      */
-    public JsonNominatimClient(final String baseUrl, final HttpClient httpClient,
+    public DeprecatedJsonNominatimClient(final String baseUrl, final HttpClient httpClient,
             final String email, final BoundingBox searchBounds, final boolean strictBounds,
             final boolean polygon) {
-        this("http://nominatim.openstreetmap.org/", httpClient, email, null, false, false, null);
+        this(baseUrl, httpClient, email, null, false, false, null);
     }
 
     /**
@@ -128,7 +131,7 @@ public final class JsonNominatimClient implements NominatimClient {
      *            Either uses standard rfc2616 accept-language string or a
      *            simple comma separated list of language codes.
      */
-    public JsonNominatimClient(final String baseUrl, final HttpClient httpClient,
+    public DeprecatedJsonNominatimClient(final String baseUrl, final HttpClient httpClient,
             final String email, final BoundingBox searchBounds, final boolean strictBounds,
             final boolean polygon, final String acceptLanguage) {
 
@@ -316,5 +319,27 @@ public final class JsonNominatimClient implements NominatimClient {
     private static String toString(final double value) {
 
         return String.format("%f", value).replaceAll(",", ".");
+    }
+
+    /**
+     * <strong>NOT IMPLEMENTED</strong>
+     * 
+     * @throws UnsupportedOperationException
+     */
+    @Override
+    public List<Address> search(NominatimSearchRequest search) throws UnsupportedOperationException {
+
+        throw new UnsupportedOperationException("Not implemented!");
+    }
+
+    /**
+     * <strong>NOT IMPLEMENTED</strong>
+     * 
+     * @throws UnsupportedOperationException
+     */
+    @Override
+    public Address getAddress(NominatimReverseRequest geocoding) throws UnsupportedOperationException {
+
+        throw new UnsupportedOperationException("Not implemented!");
     }
 }

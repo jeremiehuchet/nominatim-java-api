@@ -33,6 +33,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.dudie.nominatim.client.DeprecatedJsonNominatimClient;
 import fr.dudie.nominatim.client.JsonNominatimClient;
 import fr.dudie.nominatim.model.Address;
 
@@ -47,7 +48,7 @@ public final class JsonNominatimClientTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonNominatimClientTest.class);
 
     /** The tested Nominatim client. */
-    private static JsonNominatimClient nominatimClient;
+    private static DeprecatedJsonNominatimClient nominatimClient;
 
     /** Path to the properties file. */
     private static final String PROPS_PATH = "/nominatim-client-test.properties";
@@ -76,7 +77,7 @@ public final class JsonNominatimClientTest {
 
         final String baseUrl = PROPS.getProperty("nominatim.server.url");
         final String email = PROPS.getProperty("nominatim.headerEmail");
-        nominatimClient = new JsonNominatimClient(baseUrl, httpClient, email, null, false, true);
+        nominatimClient = new DeprecatedJsonNominatimClient(baseUrl, httpClient, email, null, false, true);
     }
 
     @Test

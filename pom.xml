@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses />.
     <name>Nominatim Java API client</name>
     <description>A simple client library for the Nominatim API written in Java</description>
     <url>http://kops.github.com/nominatim-java-api</url>
+    <inceptionYear>2010</inceptionYear>
 
     <licenses>
         <license>

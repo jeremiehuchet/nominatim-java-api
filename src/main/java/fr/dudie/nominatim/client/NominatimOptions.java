@@ -108,7 +108,7 @@ public class NominatimOptions {
      *            the request where the result is merged
      */
     void mergeTo(final NominatimSearchRequest request) {
-        if (null == request.getBounded()) {
+        if (null == request.getBounded() && null != bounded) {
             request.setBounded(bounded);
         }
         if (null == request.getViewBox()) {
@@ -117,7 +117,7 @@ public class NominatimOptions {
         if (null == request.getPolygonFormat()) {
             request.setPolygonFormat(polygonFormat);
         }
-        if (null == request.getAcceptLanguage()) {
+        if (null == request.getAcceptLanguage() && null != acceptLanguage) {
             request.setAcceptLanguage(acceptLanguage.toString());
         }
     }

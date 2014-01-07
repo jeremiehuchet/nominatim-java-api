@@ -42,7 +42,7 @@ public class NominatimReverseRequest extends NominatimRequest {
     private ReverseQuery query;
 
     /** Level of detail required where 0 is country and 18 is house/building. */
-    @QueryParameter("zoom=%d")
+    @QueryParameter("zoom=%s")
     private Integer zoom;
 
     /** Include a breakdown of the address into elements. */

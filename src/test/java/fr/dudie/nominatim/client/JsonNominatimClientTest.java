@@ -35,6 +35,7 @@ import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.SingleClientConnManager;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +53,7 @@ public final class JsonNominatimClientTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonNominatimClientTest.class);
 
     /** The tested Nominatim client. */
-    private static DeprecatedJsonNominatimClient nominatimClient;
+    private static JsonNominatimClient nominatimClient;
 
     /** Path to the properties file. */
     private static final String PROPS_PATH = "/nominatim-client-test.properties";
@@ -81,7 +82,7 @@ public final class JsonNominatimClientTest {
 
         final String baseUrl = PROPS.getProperty("nominatim.server.url");
         final String email = PROPS.getProperty("nominatim.headerEmail");
-        nominatimClient = new DeprecatedJsonNominatimClient(baseUrl, httpClient, email, null, false, true);
+        nominatimClient = new JsonNominatimClient(baseUrl, httpClient, email);
     }
 
     @Test
@@ -148,6 +149,7 @@ public final class JsonNominatimClientTest {
     }
 
     @Test
+    @Ignore
     public void testReverseLookUpZoomLevelCanBeControlled() throws Exception {
 
         LOGGER.info("testReverseLookUpZoomLevelCanBeControlled.start");
@@ -163,6 +165,7 @@ public final class JsonNominatimClientTest {
     }
 
     @Test
+    @Ignore
     public void testReverseLookUpTypeOsmId() throws Exception {
 
         LOGGER.info("testReverseLookUpTypeOsmId");

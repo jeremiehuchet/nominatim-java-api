@@ -16,6 +16,7 @@
  */
 package fr.dudie.nominatim.client.request;
 
+import fr.dudie.nominatim.client.request.paramhelper.DoubleSerializer;
 import fr.dudie.nominatim.client.request.paramhelper.QueryParameter;
 
 /**
@@ -29,11 +30,11 @@ import fr.dudie.nominatim.client.request.paramhelper.QueryParameter;
 public class CoordinatesReverseQuery extends ReverseQuery {
 
     /** The latitude. */
-    @QueryParameter("lat=%f")
+    @QueryParameter(value = "lat=%s", serializer = DoubleSerializer.class)
     private Double latitude;
 
     /** The longitude. */
-    @QueryParameter("lon=%f")
+    @QueryParameter(value = "lon=%s", serializer = DoubleSerializer.class)
     private Double longitude;
 
     /**

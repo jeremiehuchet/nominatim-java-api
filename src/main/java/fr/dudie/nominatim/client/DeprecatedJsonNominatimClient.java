@@ -138,6 +138,8 @@ final class DeprecatedJsonNominatimClient implements NominatimClient {
             final String email, final BoundingBox searchBounds, final boolean strictBounds,
             final boolean polygon, final String acceptLanguage) {
 
+        LOGGER.warn("This API is deprecated and may be removed in future release, you should consider refactoring");
+
         // prepare search URL template
         final StringBuilder searchUrlBuilder = new StringBuilder();
         searchUrlBuilder.append(baseUrl);

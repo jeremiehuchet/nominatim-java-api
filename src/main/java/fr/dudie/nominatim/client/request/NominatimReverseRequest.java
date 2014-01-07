@@ -83,7 +83,7 @@ public class NominatimReverseRequest extends NominatimRequest {
         this.query = query;
     }
 
-    public void setQuery(final OsmType type, final String id) {
+    public void setQuery(final OsmType type, final long id) {
         this.query = new OsmTypeAndIdReverseQuery(type, id);
     }
 

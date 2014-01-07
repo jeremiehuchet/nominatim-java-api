@@ -32,6 +32,7 @@ import com.google.gson.reflect.TypeToken;
 
 import fr.dudie.nominatim.client.request.NominatimReverseRequest;
 import fr.dudie.nominatim.client.request.NominatimSearchRequest;
+import fr.dudie.nominatim.client.request.paramhelper.OsmType;
 import fr.dudie.nominatim.gson.ArrayOfAddressElementsDeserializer;
 import fr.dudie.nominatim.gson.ArrayOfPolygonPointsDeserializer;
 import fr.dudie.nominatim.gson.BoundingBoxDeserializer;
@@ -46,7 +47,7 @@ import fr.dudie.nominatim.model.PolygonPoint;
  * 
  * @author Jérémie Huchet
  */
-public final class JsonNominatimClient implements NominatimClient {
+public final class JsonNominatimClient implements NominatimClientV3 {
 
     /** The event logger. */
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonNominatimClient.class);
@@ -66,6 +67,9 @@ public final class JsonNominatimClient implements NominatimClient {
     /** The url for reverse geocoding. */
     private final String reverseUrl;
 
+    /** The default search options. */
+    private final NominatimOptions defaults;
+
     /** The HTTP client. */
     private HttpClient httpClient;
 
@@ -74,9 +78,6 @@ public final class JsonNominatimClient implements NominatimClient {
 
     /** The default response handler for reverse geocoding requests. */
     private NominatimResponseHandler<Address> defaultReverseGeocodingHandler;
-
-    /** Keep the older version for forward compatibility. */
-    private NominatimClient deprecatedClient;
 
     /**
      * Creates the json nominatim client with the default base URL ({@value #DEFAULT_BASE_URL}.
@@ -88,7 +89,22 @@ public final class JsonNominatimClient implements NominatimClient {
      */
     public JsonNominatimClient(final HttpClient httpClient, final String email) {
 
-        this(DEFAULT_BASE_URL, httpClient, email);
+        this(DEFAULT_BASE_URL, httpClient, email, new NominatimOptions());
+    }
+
+    /**
+     * Creates the json nominatim client with the default base URL ({@value #DEFAULT_BASE_URL}.
+     * 
+     * @param httpClient
+     *            an HTTP client
+     * @param email
+     *            an email to add in the HTTP requests parameters to "sign" them
+     * @param defaults
+     *            defaults options, they override null valued requests options
+     */
+    public JsonNominatimClient(final HttpClient httpClient, final String email, final NominatimOptions defaults) {
+
+        this(DEFAULT_BASE_URL, httpClient, email, defaults);
     }
 
     /**
@@ -104,6 +120,24 @@ public final class JsonNominatimClient implements NominatimClient {
      */
     public JsonNominatimClient(final String baseUrl, final HttpClient httpClient, final String email) {
 
+        this(baseUrl, httpClient, email, new NominatimOptions());
+    }
+
+    /**
+     * Creates the json nominatim client.
+     * 
+     * @param baseUrl
+     *            the nominatim server url
+     * @param httpClient
+     *            an HTTP client
+     * @param email
+     *            an email to add in the HTTP requests parameters to "sign" them (see
+     *            http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy)
+     * @param defaults
+     *            defaults options, they override null valued requests options
+     */
+    public JsonNominatimClient(final String baseUrl, final HttpClient httpClient, final String email, final NominatimOptions defaults) {
+
         String emailEncoded;
         try {
             emailEncoded = URLEncoder.encode(email, ENCODING_UTF_8);
@@ -117,6 +151,8 @@ public final class JsonNominatimClient implements NominatimClient {
             LOGGER.debug("API search URL: {}", searchUrl);
             LOGGER.debug("API reverse URL: {}", reverseUrl);
         }
+
+        this.defaults = defaults;
 
         // prepare gson instance
         final GsonBuilder gsonBuilder = new GsonBuilder();
@@ -163,129 +199,69 @@ public final class JsonNominatimClient implements NominatimClient {
         return httpClient.execute(req, defaultReverseGeocodingHandler);
     }
 
-    /*
-     * DEPRECATED IMPLEMENTATION 
-     */
-
-    /**
-     * Creates the json nominatim client.
-     * 
-     * @param baseUrl
-     *            the nominatim server url
-     * @param httpClient
-     *            an HTTP client
-     * @param email
-     *            an email to add in the HTTP requests parameters to "sign" them (see
-     *            http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy)
-     * @param searchBounds
-     *            the prefered search bounds
-     * @param strictBounds
-     *            set to true if you want the results to be located into the given bounding box
-     * @param polygon
-     *            true to get results with polygon points
-     */
-    @Deprecated
-    public JsonNominatimClient(final String baseUrl, final HttpClient httpClient,
-            final String email, final BoundingBox searchBounds, final boolean strictBounds,
-            final boolean polygon) {
-        this(baseUrl, httpClient, email);
-        deprecatedClient = new DeprecatedJsonNominatimClient(baseUrl, httpClient, email, null, false, false, null);
-    }
-
-    /**
-     * Creates the json nominatim client.
-     * 
-     * @param baseUrl
-     *            the nominatim server url
-     * @param httpClient
-     *            an HTTP client
-     * @param email
-     *            an email to add in the HTTP requests parameters to "sign" them
-     *            (see http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy)
-     * @param searchBounds
-     *            the prefered search bounds
-     * @param strictBounds
-     *            set to true if you want the results to be located into the
-     *            given bounding box
-     * @param polygon
-     *            true to get results with polygon points
-     * @param acceptLanguage
-     *            Preferred language order for showing search results, overrides
-     *            the browser value.<br/>
-     *            Either uses standard rfc2616 accept-language string or a
-     *            simple comma separated list of language codes.
-     */
-    @Deprecated
-    public JsonNominatimClient(final String baseUrl, final HttpClient httpClient,
-            final String email, final BoundingBox searchBounds, final boolean strictBounds,
-            final boolean polygon, final String acceptLanguage) {
-        this(baseUrl, httpClient, email);
-        deprecatedClient = new DeprecatedJsonNominatimClient(baseUrl, httpClient, email, searchBounds, strictBounds, polygon, acceptLanguage);
-    }
-
     /**
      * {@inheritDoc}
      * 
-     * @deprecated Now you should use {@link #search(NominatimSearchRequest)}
      * @see fr.dudie.nominatim.client.NominatimClient#search(java.lang.String)
      */
-    @Deprecated
     @Override
     public List<Address> search(final String query) throws IOException {
 
-        return deprecatedClient.search(query);
+        final NominatimSearchRequest q = new NominatimSearchRequest();
+        defaults.mergeTo(q);
+        q.setQuery(query);
+        return this.search(q);
     }
 
     /**
      * {@inheritDoc}
      * 
-     * @deprecated Now you should use {@link #getAddress(NominatimReverseRequest)}
      * @see fr.dudie.nominatim.client.NominatimClient#getAddress(double, double)
      */
-    @Deprecated
     @Override
     public Address getAddress(final double longitude, final double latitude) throws IOException {
 
-        return deprecatedClient.getAddress(longitude, latitude);
+        final NominatimReverseRequest q = new NominatimReverseRequest();
+        q.setQuery(longitude, latitude);
+        return this.getAddress(q);
     }
 
     /**
      * {@inheritDoc}
      * 
-     * @deprecated Now you should use {@link #getAddress(NominatimReverseRequest)}
      * @see fr.dudie.nominatim.client.NominatimClient#getAddress(double, double, int)
      */
-    @Deprecated
     @Override
     public Address getAddress(final double longitude, final double latitude, final int zoom)
             throws IOException {
 
-        return deprecatedClient.getAddress(longitude, latitude);
+        final NominatimReverseRequest q = new NominatimReverseRequest();
+        q.setQuery(longitude, latitude);
+        q.setZoom(zoom);
+        return this.getAddress(q);
     }
 
     /**
      * {@inheritDoc}
      * 
-     * @deprecated Now you should use {@link #getAddress(NominatimReverseRequest)}
      * @see fr.dudie.nominatim.client.NominatimClient#getAddress(int, int)
      */
-    @Deprecated
     @Override
     public Address getAddress(final int longitudeE6, final int latitudeE6) throws IOException {
 
-        return deprecatedClient.getAddress(longitudeE6, latitudeE6);
+        return this.getAddress((double) (longitudeE6 / 1E6), (double) (latitudeE6 / 1E6));
     }
 
     /**
      * {@inheritDoc}
      * 
-     * @deprecated Now you should use {@link #getAddress(NominatimReverseRequest)}
      * @see fr.dudie.nominatim.client.NominatimClient#getAddress(String, int)
      */
-    @Deprecated
     @Override
     public Address getAddress(final String type, final long id) throws IOException {
 
-        return deprecatedClient.getAddress(type, id);
+        final NominatimReverseRequest q = new NominatimReverseRequest();
+        q.setQuery(OsmType.from(type), id);
+        return this.getAddress(q);
     }
 }

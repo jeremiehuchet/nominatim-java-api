@@ -232,7 +232,7 @@ public class NominatimSearchRequest extends NominatimRequest {
      * 
      * @return the bounded
      */
-    public boolean getBounded() {
+    public Boolean getBounded() {
         return bounded;
     }
 

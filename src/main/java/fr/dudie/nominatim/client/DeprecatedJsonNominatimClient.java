@@ -325,26 +325,4 @@ final class DeprecatedJsonNominatimClient implements NominatimClient {
 
         return String.format("%f", value).replaceAll(",", ".");
     }
-
-    /**
-     * <strong>NOT IMPLEMENTED</strong>
-     * 
-     * @throws UnsupportedOperationException
-     */
-    @Override
-    public List<Address> search(NominatimSearchRequest search) throws UnsupportedOperationException {
-
-        throw new UnsupportedOperationException("Not implemented!");
-    }
-
-    /**
-     * <strong>NOT IMPLEMENTED</strong>
-     * 
-     * @throws UnsupportedOperationException
-     */
-    @Override
-    public Address getAddress(NominatimReverseRequest geocoding) throws UnsupportedOperationException {
-
-        throw new UnsupportedOperationException("Not implemented!");
-    }
 }

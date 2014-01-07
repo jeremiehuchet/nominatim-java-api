@@ -39,7 +39,7 @@ public class OsmTypeAndIdReverseQuery extends ReverseQuery {
      * The id of the searched element.
      */
     @QueryParameter("osm_id=%s")
-    private String id;
+    private long id;
 
     /**
      * @param type
@@ -47,7 +47,7 @@ public class OsmTypeAndIdReverseQuery extends ReverseQuery {
      * @param id
      *            the id of the searched element
      */
-    public OsmTypeAndIdReverseQuery(final OsmType type, final String id) {
+    public OsmTypeAndIdReverseQuery(final OsmType type, final long id) {
         this.type = type;
         this.id = id;
     }
@@ -70,7 +70,7 @@ public class OsmTypeAndIdReverseQuery extends ReverseQuery {
     /**
      * @return the osm id
      */
-    public String getId() {
+    public long getId() {
         return id;
     }
 
@@ -78,7 +78,7 @@ public class OsmTypeAndIdReverseQuery extends ReverseQuery {
      * @param id
      *            the osm id to set
      */
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 }

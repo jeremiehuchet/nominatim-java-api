@@ -51,6 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses />.
     <properties>
         <!-- compile time deps versions -->
         <slf4j.version>1.6.1</slf4j.version>
+        <httpcomponents.version>4.0.2</httpcomponents.version>
 
         <!-- test deps versions -->
         <junit.version>4.8.2</junit.version>
@@ -67,6 +68,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses />.
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpcomponents.version}</version>
         </dependency>
 
         <dependency>
@@ -90,50 +96,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses />.
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>java</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <httpcomponents.version>4.0.2</httpcomponents.version>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.httpcomponents</groupId>
-                    <artifactId>httpclient</artifactId>
-                    <version>${httpcomponents.version}</version>
-                    <type>jar</type>
-                    <scope>compile</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
-            <id>android</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <configuration>
-                            <classifier>android</classifier>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-            <dependencies>
-                <dependency>
-                    <groupId>com.google.android</groupId>
-                    <artifactId>android</artifactId>
-                    <version>2.1.2</version>
-                    <type>jar</type>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
 
 </project>

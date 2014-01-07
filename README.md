@@ -12,9 +12,7 @@ This library provides a client for [Nominatim](http://wiki.openstreetmap.org/wik
 Java & Android
 --------------
 
-This library is fully compatible with Android. The `pom.xml` file has two profiles: 
-* **java** is the default and use common java dependencies (`org.json:json-20070829` and `org.apache.httpcomponents:httpclient-4.0.2`)
-* **android** can be activated using command `mvn -Pandroid clean package`. Then the dependencies will be switched to android dependency (`com.google.android:android-2.1.2`)
+This library is fully compatible with Android.
 
 Please ask for enhancements and report bugs on [Github tracker](https://github.com/kops/nominatim-java-api/issues/new) or [contact us](http://www.google.com/recaptcha/mailhide/d?k=01Th60_7w3rxWuSJumsnqxfg==&c=REgbsYXndhO58POROxZGybu0F_Xu3JmR-wBRNbh8knE).
 

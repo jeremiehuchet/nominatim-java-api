@@ -13,7 +13,7 @@ Maven users can add the following dependency to their pom.xml:
     <dependency>
       <groupId>fr.dudie</groupId>
       <artifactId>nominatim-api</artifactId>
-      <version>2.0.2</version>
+      <version>3.0</version>
     </dependency>
 
 *Note that it is fair and reasonable to specify an email address when using the Nominatim API*, see the [Notminatim Usage Policy](http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy) for more informations.

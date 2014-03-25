@@ -28,29 +28,6 @@ This library is fully compatible with Android.
 Features
 --------
 
+See the [releases](https://github.com/kops/nominatim-java-api/releases) page.
+
 Please ask for enhancements and report bugs on [Github tracker](https://github.com/kops/nominatim-java-api/issues/new) or [contact us](http://www.google.com/recaptcha/mailhide/d?k=01Th60_7w3rxWuSJumsnqxfg==&c=REgbsYXndhO58POROxZGybu0F_Xu3JmR-wBRNbh8knE).
-
-3.0-SNAPSHOT
-* Client interface refactoring for a better support of Nominatim features
-* Issue [#11](https://github.com/kops/nominatim-java-api/issues/11) wrong documentation
-* Feature request [#8](https://github.com/kops/nominatim-java-api/issues/8) Support accept-language 
-
-2.0.2
-* Issue #7 Remove `org.json:json` dependency
-
-2.0.1
-* Bug [#6](https://github.com/kops/nominatim-java-api/issues/6) The bounding box values are incorrect
-* Enhancement [#1](https://github.com/kops/nominatim-java-api/issues/1) Make the API URL customizable
-* Pull-request [#2](https://github.com/kops/nominatim-java-api/pull/2) Addition of place_id field to Address (from tonytw1)
-* Pull-request [#5](https://github.com/kops/nominatim-java-api/pull/5) Additional reverse look up methods (from tonytw1)
-
-2.0
-* Use gson to deserialize Nominatim responses
-
-1.0.1
-* Expose the OpenStreetMap place_id field on the Address class. [Tony McCrae]
-
-1.0
-* string searches
-* reverse geocoding
-

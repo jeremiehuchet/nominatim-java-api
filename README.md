@@ -5,6 +5,17 @@ Nominatim Java API
 
 This library provides a client for [Nominatim](http://wiki.openstreetmap.org/wiki/Nominatim). This API provides search and reverse geocoding operations. 
 
+How to use
+----------
+
+Maven users can add the following dependency to their pom.xml:
+
+    <dependency>
+      <groupId>fr.dudie</groupId>
+      <artifactId>nominatim-api</artifactId>
+      <version>2.0.2</version>
+    </dependency>
+
 *Note that it is fair and reasonable to specify an email address when using the Nominatim API*, see the [Notminatim Usage Policy](http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy) for more informations.
 
 > If you are sending in large numbers of requests it is particularly important that we have some way of contacting you - otherwise, in the event of problems, the only alternative is to ban your IP and wait for you to contact us.
@@ -14,13 +25,15 @@ Java & Android
 
 This library is fully compatible with Android.
 
-Please ask for enhancements and report bugs on [Github tracker](https://github.com/kops/nominatim-java-api/issues/new) or [contact us](http://www.google.com/recaptcha/mailhide/d?k=01Th60_7w3rxWuSJumsnqxfg==&c=REgbsYXndhO58POROxZGybu0F_Xu3JmR-wBRNbh8knE).
-
 Features
 --------
 
-next-release
-* Issue #11 wrong documentation
+Please ask for enhancements and report bugs on [Github tracker](https://github.com/kops/nominatim-java-api/issues/new) or [contact us](http://www.google.com/recaptcha/mailhide/d?k=01Th60_7w3rxWuSJumsnqxfg==&c=REgbsYXndhO58POROxZGybu0F_Xu3JmR-wBRNbh8knE).
+
+3.0-SNAPSHOT
+* Client interface refactoring for a better support of Nominatim features
+* Issue [#11](https://github.com/kops/nominatim-java-api/issues/11) wrong documentation
+* Feature request [#8](https://github.com/kops/nominatim-java-api/issues/8) Support accept-language 
 
 2.0.2
 * Issue #7 Remove `org.json:json` dependency

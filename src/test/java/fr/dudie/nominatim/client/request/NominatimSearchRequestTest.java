@@ -32,7 +32,6 @@ public class NominatimSearchRequestTest {
     @Before
     public void reset() {
         req = new NominatimSearchRequest();
-        ;
     }
 
     @Test

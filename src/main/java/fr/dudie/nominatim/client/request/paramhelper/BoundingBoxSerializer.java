@@ -16,8 +16,6 @@
  */
 package fr.dudie.nominatim.client.request.paramhelper;
 
-import java.util.Locale;
-
 import fr.dudie.nominatim.model.BoundingBox;
 
 /**
@@ -26,6 +24,9 @@ import fr.dudie.nominatim.model.BoundingBox;
  * @author Jeremie Huchet
  */
 public class BoundingBoxSerializer implements QueryParameterSerializer {
+
+    /** Serializer to transform double values to string. */
+    private final DoubleSerializer doubleSerializer = new DoubleSerializer();
 
     /**
      * Converts the input value to a <code>left,top,right,bottom</code> string representation.
@@ -38,25 +39,13 @@ public class BoundingBoxSerializer implements QueryParameterSerializer {
         final StringBuilder s = new StringBuilder();
         if (value instanceof BoundingBox) {
             final BoundingBox bbox = (BoundingBox) value;
-            s.append(toString(bbox.getWest())).append(',');
-            s.append(toString(bbox.getNorth())).append(',');
-            s.append(toString(bbox.getEast())).append(',');
-            s.append(toString(bbox.getSouth()));
+            s.append(doubleSerializer.handle(bbox.getWest())).append(',');
+            s.append(doubleSerializer.handle(bbox.getNorth())).append(',');
+            s.append(doubleSerializer.handle(bbox.getEast())).append(',');
+            s.append(doubleSerializer.handle(bbox.getSouth()));
         } else {
             s.append(value);
         }
         return s.toString();
-    }
-
-    /**
-     * Gets the string representation of a double value.
-     * 
-     * @param value
-     *            a double value
-     * @return the string representation (e. g. "48.054600")
-     */
-    private static String toString(final double value) {
-
-        return String.format(Locale.US, "%.14f", value);
     }
 }

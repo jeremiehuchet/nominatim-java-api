@@ -1,5 +1,7 @@
 package fr.dudie.nominatim.client.request.paramhelper;
 
+import java.util.Locale;
+
 
 public class DoubleSerializer implements QueryParameterSerializer {
 
@@ -11,7 +13,7 @@ public class DoubleSerializer implements QueryParameterSerializer {
     @Override
     public String handle(final Object value) {
         if (value instanceof Double) {
-            return String.format("%f", (Double) value);
+            return String.format(Locale.US, "%.14f", (Double) value);
         } else {
             throw new IllegalArgumentException("Can't serialize anything but Double");
         }

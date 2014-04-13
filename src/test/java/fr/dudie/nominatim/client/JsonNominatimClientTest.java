@@ -40,6 +40,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.dudie.nominatim.client.request.NominatimSearchRequest;
 import fr.dudie.nominatim.model.Address;
 
 /**
@@ -180,4 +181,42 @@ public final class JsonNominatimClientTest {
         LOGGER.info("testReverseLookUpTypeOsmId");
     }
 
+    @Test
+    public void testAddressWithDetails() throws IOException {
+
+        LOGGER.info("testReverseLookUpTypeOsmId");
+
+        final NominatimSearchRequest r = new NominatimSearchRequest();
+        r.setQuery("rennes, france");
+        r.setAddress(true);
+        final List<Address> addresses = nominatimClient.search(r);
+
+        assertNotNull("result list is not null", addresses);
+        assertTrue("there is more than one result", addresses.size() > 0);
+        for (final Address address : addresses) {
+            assertNotNull("address details are available in result", address.getAddressElements());
+            assertTrue("at least one address detail is available", address.getAddressElements().length > 0);
+        }
+
+        LOGGER.info("testReverseLookUpTypeOsmId");
+    }
+
+    @Test
+    public void testAddressWithoutDetails() throws IOException {
+
+        LOGGER.info("testReverseLookUpTypeOsmId");
+
+        final NominatimSearchRequest r = new NominatimSearchRequest();
+        r.setQuery("rennes, france");
+        r.setAddress(false);
+        final List<Address> addresses = nominatimClient.search(r);
+
+        assertNotNull("result list is not null", addresses);
+        assertTrue("there is more than one result", addresses.size() > 0);
+        for (final Address address : addresses) {
+            assertNull("address details are not available in result", address.getAddressElements());
+        }
+
+        LOGGER.info("testReverseLookUpTypeOsmId");
+    }
 }

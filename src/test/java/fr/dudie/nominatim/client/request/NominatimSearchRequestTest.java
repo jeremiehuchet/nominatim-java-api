@@ -51,14 +51,14 @@ public class NominatimSearchRequestTest {
     public void simpleQueryWithAddress() throws UnsupportedEncodingException {
         req.setQuery("france");
         req.setAddress(true);
-        assertEquals("q=france&address=1", req.getQueryString());
+        assertEquals("q=france&addressdetails=1", req.getQueryString());
     }
 
     @Test
     public void simpleQueryWithoutAddress() throws UnsupportedEncodingException {
         req.setQuery("france");
         req.setAddress(false);
-        assertEquals("q=france&address=0", req.getQueryString());
+        assertEquals("q=france&addressdetails=0", req.getQueryString());
     }
 
     @Test

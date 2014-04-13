@@ -68,7 +68,7 @@ public class NominatimSearchRequest extends NominatimRequest {
     private Boolean bounded;
 
     /** Include a breakdown of the address into elements. */
-    @QueryParameter(value = "address=%s", serializer = BooleanSerializer.class)
+    @QueryParameter(value = "addressdetails=%s", serializer = BooleanSerializer.class)
     private Boolean address;
 
     /**

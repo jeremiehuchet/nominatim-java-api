@@ -47,7 +47,7 @@ import fr.dudie.nominatim.model.PolygonPoint;
  * 
  * @author Jérémie Huchet
  */
-public final class JsonNominatimClient implements NominatimClientV3 {
+public final class JsonNominatimClient implements NominatimClient {
 
     /** The event logger. */
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonNominatimClient.class);

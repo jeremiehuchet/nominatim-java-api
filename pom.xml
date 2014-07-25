@@ -22,12 +22,12 @@
     <parent>
         <groupId>fr.dudie</groupId>
         <artifactId>dudie-parent</artifactId>
-        <version>1.4-SNAPSHOT</version>
+        <version>1.4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>nominatim-api</artifactId>
-    <version>3.0-SNAPSHOT</version>
+    <version>3.0</version>
     <packaging>jar</packaging>
 
     <name>Nominatim Java API client</name>
@@ -47,7 +47,8 @@
         <url>https://github.com/kops/nominatim-java-api/tree/master</url>
         <connection>scm:git:git@github.com:kops/nominatim-java-api.git</connection>
         <developerConnection>scm:git:git@github.com:kops/nominatim-java-api.git</developerConnection>
-    </scm>
+      <tag>v3.0</tag>
+  </scm>
 
     <issueManagement>
         <system>Github tracker</system>

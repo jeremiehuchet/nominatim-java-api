@@ -32,7 +32,7 @@
 
     <name>Nominatim Java API client</name>
     <description>A simple client library for the Nominatim API written in Java</description>
-    <url>http://kops.github.com/nominatim-java-api</url>
+    <url>https://github.com/kops/nominatim-java-api</url>
     <inceptionYear>2010</inceptionYear>
 
     <licenses>

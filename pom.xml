@@ -29,7 +29,7 @@
 
     <name>Nominatim Java API client</name>
     <description>A simple client library for the Nominatim API written in Java</description>
-    <url>https://github.com/kops/nominatim-java-api</url>
+    <url>https://github.com/robsoncassol/nominatim-java-api</url>
     <inceptionYear>2010</inceptionYear>
 
     <licenses>
@@ -41,15 +41,15 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/kops/nominatim-java-api/tree/master</url>
-        <connection>scm:git:git@github.com:kops/nominatim-java-api.git</connection>
-        <developerConnection>scm:git:git@github.com:kops/nominatim-java-api.git</developerConnection>
+        <url>https://github.com/robsoncassol/nominatim-java-api/tree/master</url>
+        <connection>scm:git:git@github.com:robsoncassol/nominatim-java-api.git</connection>
+        <developerConnection>scm:git:git@github.com:robsoncassol/nominatim-java-api.git</developerConnection>
       <tag>HEAD</tag>
   </scm>
 
     <issueManagement>
         <system>Github tracker</system>
-        <url>https://github.com/kops/nominatim-java-api/issues</url>
+        <url>https://github.com/robsoncassol/nominatim-java-api/issues</url>
     </issueManagement>
 
     <properties>

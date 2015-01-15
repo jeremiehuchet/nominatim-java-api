@@ -116,5 +116,5 @@
         </dependency>
     </dependencies>
 
-    <groupId>nominatim-dev-3.1.1</groupId>
+    <groupId>com.gauge.mominatim</groupId>
 </project>

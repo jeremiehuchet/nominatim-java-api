@@ -106,6 +106,21 @@ public final class JsonNominatimClientTest {
 
         LOGGER.info("testGetAddress.end");
     }
+    
+    @Test
+    public void testGetAddressWithLanguage() throws Exception {
+    	
+    	LOGGER.info("testGetAddressWithLanguage.start");
+    	
+    	final Address ptBrAddress = nominatimClient.getAddress(-1.81602098644987, 52.5487429714954, "pt_BR");
+    	final Address enUSAddress = nominatimClient.getAddress(-1.81602098644987, 52.5487429714954, "en_US");
+    	
+    	assertTrue(ptBrAddress.getPlaceId() == enUSAddress.getPlaceId());
+    	assertEquals("137, Pilkington Avenue, Castle Vale, Birmingham, Warwickshire, West Midlands, Inglaterra, B72 1LH, Reino Unido", ptBrAddress.getDisplayName());
+    	assertEquals("137, Pilkington Avenue, Castle Vale, Birmingham, Warwickshire, West Midlands, England, B72 1LH, United Kingdom", enUSAddress.getDisplayName());
+    	
+    	LOGGER.info("testGetAddressWithLanguage.end");
+    }
 
     @Test
     public void testSearchWithResults() throws IOException {
@@ -170,7 +185,7 @@ public final class JsonNominatimClientTest {
         LOGGER.info("testReverseLookUpZoomLevelCanBeControlled.end");
 
     }
-
+    
     @Test
     @Ignore
     public void testReverseLookUpTypeOsmId() throws Exception {

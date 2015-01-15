@@ -46,6 +46,21 @@
         <developerConnection>scm:git:git@github.com:robsoncassol/nominatim-java-api.git</developerConnection>
       <tag>HEAD</tag>
   </scm>
+  
+  <distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>Gauge - Nexus Releases Repository</name>
+			<url>http://ci.perceptool.com.br:8080/nexus/content/repositories/releases</url>
+			<layout>default</layout>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Gauge - Nexus Snapshots Repository</name>
+			<url>http://ci.perceptool.com.br:8080/nexus/content/repositories/snapshots</url>
+			<layout>default</layout>
+		</snapshotRepository>
+	</distributionManagement>
 
     <issueManagement>
         <system>Github tracker</system>

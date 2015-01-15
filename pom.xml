@@ -18,17 +18,14 @@
   License along with this program.  If not, see
   <http://www.gnu.org/licenses/lgpl-3.0.html>.
   [/license]
-  --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <groupId>fr.dudie</groupId>
-        <artifactId>dudie-parent</artifactId>
-        <version>1.4</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
+  --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">    
+
 
     <artifactId>nominatim-api</artifactId>
     <version>3.1-SNAPSHOT</version>
     <packaging>jar</packaging>
+	<modelVersion>4.0.0</modelVersion>    
+   
 
     <name>Nominatim Java API client</name>
     <description>A simple client library for the Nominatim API written in Java</description>
@@ -104,4 +101,5 @@
         </dependency>
     </dependencies>
 
+    <groupId>nominatim-dev-3.1.1</groupId>
 </project>

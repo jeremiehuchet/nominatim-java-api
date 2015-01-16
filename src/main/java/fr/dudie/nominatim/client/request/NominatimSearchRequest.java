@@ -85,7 +85,7 @@ public class NominatimSearchRequest extends NominatimRequest {
     private List<String> excludePlaceIds;
 
     /** Limit the number of returned results. */
-    @QueryParameter("limit=%d")
+    @QueryParameter("limit=%s")
     private Integer limit;
 
     /** Choose output geometry format. */

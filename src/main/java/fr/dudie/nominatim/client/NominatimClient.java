@@ -64,6 +64,22 @@ public interface NominatimClient {
     Address getAddress(double longitude, double latitude) throws IOException;
 
     /**
+     * Reverse geocode the given coordinates.
+     * 
+     * @param longitude
+     *            a longitude
+     * @param latitude
+     *            a latitude
+     * @param acceptLanguage
+     *  		  a laguange            
+     * @return an address corresponding to the given longitude and latitude or <code>null</code> if no result found
+     * @throws IOException
+     *             a communication error occurred
+     * @since 1.0
+     */
+    Address getAddress(double longitude, double latitude, String acceptLanguage) throws IOException;
+
+    /**
      * Reverse geocode the given coordinates using a specific zoom level
      * 
      * @param longitude

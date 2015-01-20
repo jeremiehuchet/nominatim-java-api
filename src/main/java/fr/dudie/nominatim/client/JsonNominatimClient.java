@@ -235,6 +235,20 @@ public final class JsonNominatimClient implements NominatimClient {
     /**
      * {@inheritDoc}
      * 
+     * @see fr.dudie.nominatim.client.NominatimClient#getAddress(double, double,String)
+     */
+    @Override
+    public Address getAddress(final double longitude, final double latitude, String acceptLanguage) throws IOException {
+    	
+    	final NominatimReverseRequest q = new NominatimReverseRequest();
+    	q.setAcceptLanguage(acceptLanguage);
+    	q.setQuery(longitude, latitude);
+    	return this.getAddress(q);
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
      * @see fr.dudie.nominatim.client.NominatimClient#getAddress(double, double, int)
      */
     @Override

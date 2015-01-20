@@ -18,21 +18,18 @@
   License along with this program.  If not, see
   <http://www.gnu.org/licenses/lgpl-3.0.html>.
   [/license]
-  --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <groupId>fr.dudie</groupId>
-        <artifactId>dudie-parent</artifactId>
-        <version>1.4</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
+  --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">    
+
 
     <artifactId>nominatim-api</artifactId>
-    <version>3.1-SNAPSHOT</version>
+    <version>3.2-SNAPSHOT</version>
     <packaging>jar</packaging>
+	<modelVersion>4.0.0</modelVersion>    
+   
 
     <name>Nominatim Java API client</name>
     <description>A simple client library for the Nominatim API written in Java</description>
-    <url>https://github.com/kops/nominatim-java-api</url>
+    <url>https://github.com/robsoncassol/nominatim-java-api</url>
     <inceptionYear>2010</inceptionYear>
 
     <licenses>
@@ -44,15 +41,30 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/kops/nominatim-java-api/tree/master</url>
-        <connection>scm:git:git@github.com:kops/nominatim-java-api.git</connection>
-        <developerConnection>scm:git:git@github.com:kops/nominatim-java-api.git</developerConnection>
+        <url>https://github.com/robsoncassol/nominatim-java-api/tree/master</url>
+        <connection>scm:git:git@github.com:robsoncassol/nominatim-java-api.git</connection>
+        <developerConnection>scm:git:git@github.com:robsoncassol/nominatim-java-api.git</developerConnection>
       <tag>HEAD</tag>
   </scm>
+  
+  <distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>Gauge - Nexus Releases Repository</name>
+			<url>http://ci.perceptool.com.br:8080/nexus/content/repositories/releases</url>
+			<layout>default</layout>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Gauge - Nexus Snapshots Repository</name>
+			<url>http://ci.perceptool.com.br:8080/nexus/content/repositories/snapshots</url>
+			<layout>default</layout>
+		</snapshotRepository>
+	</distributionManagement>
 
     <issueManagement>
         <system>Github tracker</system>
-        <url>https://github.com/kops/nominatim-java-api/issues</url>
+        <url>https://github.com/robsoncassol/nominatim-java-api/issues</url>
     </issueManagement>
 
     <properties>
@@ -104,4 +116,5 @@
         </dependency>
     </dependencies>
 
+    <groupId>com.gauge.mominatim</groupId>
 </project>

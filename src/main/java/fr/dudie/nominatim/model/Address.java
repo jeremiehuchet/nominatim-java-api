@@ -120,6 +120,9 @@ public final class Address {
     @SerializedName("address")
     private AddressElement[] addressElements;
 
+    @SerializedName("importance")
+    private double importance;
+
     /**
      * Gets the OpenStreetMap place id.
      * 
@@ -412,6 +415,26 @@ public final class Address {
     public void setAddressElements(final AddressElement[] addressElements) {
 
         this.addressElements = addressElements;
+    }
+
+    /**
+     * Gets the address importance.
+     *
+     * @return the address importance
+     */
+    public double getImportance() {
+
+        return importance;
+    }
+
+    /**
+     * Gets the address importance.
+     *
+     * @return the address importance
+     */
+    public void setImportance(final double importance) {
+
+        this.importance = importance;
     }
 
 }

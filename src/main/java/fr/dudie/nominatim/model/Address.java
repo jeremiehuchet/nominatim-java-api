@@ -120,6 +120,10 @@ public final class Address {
     @SerializedName("address")
     private AddressElement[] addressElements;
 
+    /** The polygon as a WKT string */
+    @SerializedName("geotext")
+    private String wkt;
+
     /**
      * Gets the OpenStreetMap place id.
      * 
@@ -412,6 +416,26 @@ public final class Address {
     public void setAddressElements(final AddressElement[] addressElements) {
 
         this.addressElements = addressElements;
+    }
+
+
+    /**
+     * Gets polygon's WKT string.
+     *
+     * @return the polygon's WKT string; NULL if not available or applicable.
+     */
+    public String getWkt() {
+        return wkt;
+    }
+
+    /**
+     * Sets a polygon's WKT string.
+     *
+     * @param wkt
+     *            the WKT string to set.
+     */
+    public String setWkt(String wkt) {
+        return wkt;
     }
 
 }

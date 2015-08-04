@@ -123,6 +123,10 @@ public final class Address {
     @SerializedName("importance")
     private double importance;
 
+    /** The polygon as a WKT string */
+    @SerializedName("geotext")
+    private String wkt;
+
     /**
      * Gets the OpenStreetMap place id.
      * 
@@ -435,6 +439,25 @@ public final class Address {
     public void setImportance(final double importance) {
 
         this.importance = importance;
+    }
+
+    /**
+     * Gets polygon's WKT string.
+     *
+     * @return the polygon's WKT string; NULL if not available or applicable.
+     */
+    public String getWkt() {
+        return wkt;
+    }
+
+    /**
+     * Sets a polygon's WKT string.
+     *
+     * @param wkt
+     *            the WKT string to set.
+     */
+    public String setWkt(String wkt) {
+        return wkt;
     }
 
 }

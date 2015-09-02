@@ -36,6 +36,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import fr.dudie.nominatim.client.request.NominatimLookupRequest;
 import fr.dudie.nominatim.client.request.NominatimReverseRequest;
 import fr.dudie.nominatim.client.request.NominatimSearchRequest;
 import fr.dudie.nominatim.client.request.paramhelper.OsmType;
@@ -52,6 +53,7 @@ import fr.dudie.nominatim.model.PolygonPoint;
  * An implementation of the Nominatim Api Service.
  * 
  * @author Jérémie Huchet
+ * @author Sunil D S
  */
 public final class JsonNominatimClient implements NominatimClient {
 
@@ -72,6 +74,9 @@ public final class JsonNominatimClient implements NominatimClient {
 
     /** The url for reverse geocoding. */
     private final String reverseUrl;
+    
+    /** The url for address lookup. */
+    private final String lookupUrl;
 
     /** The default search options. */
     private final NominatimOptions defaults;
@@ -84,6 +89,9 @@ public final class JsonNominatimClient implements NominatimClient {
 
     /** The default response handler for reverse geocoding requests. */
     private NominatimResponseHandler<Address> defaultReverseGeocodingHandler;
+    
+    /** The default response handler for lookup requests. */
+    private NominatimResponseHandler<List<Address>> defaultLookupHandler;
 
     /**
      * Creates the json nominatim client with the default base URL ({@value #DEFAULT_BASE_URL}.
@@ -152,6 +160,7 @@ public final class JsonNominatimClient implements NominatimClient {
         }
         this.searchUrl = String.format("%s/search?format=json&email=%s", baseUrl.replaceAll("/$", ""), emailEncoded);
         this.reverseUrl = String.format("%s/reverse?format=json&email=%s", baseUrl.replaceAll("/$", ""), emailEncoded);
+        this.lookupUrl = String.format("%s/lookup?format=json&email=%s", baseUrl.replaceAll("/$", ""), emailEncoded);
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("API search URL: {}", searchUrl);
@@ -175,6 +184,8 @@ public final class JsonNominatimClient implements NominatimClient {
         defaultSearchResponseHandler = new NominatimResponseHandler<List<Address>>(gsonInstance, new TypeToken<List<Address>>() {
         }.getType());
         defaultReverseGeocodingHandler = new NominatimResponseHandler<Address>(gsonInstance, Address.class);
+        defaultLookupHandler = new NominatimResponseHandler<List<Address>>(gsonInstance, new TypeToken<List<Address>>() {
+        }.getType());
     }
 
     /**
@@ -205,6 +216,20 @@ public final class JsonNominatimClient implements NominatimClient {
         return httpClient.execute(req, defaultReverseGeocodingHandler);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @see fr.dudie.nominatim.client.NominatimClient#lookupAddress(fr.dudie.nominatim.client.request.NominatimLookupRequest)
+     */
+    @Override
+    public List<Address> lookupAddress(final NominatimLookupRequest lookup) throws IOException {
+
+        final String apiCall = String.format("%s&%s", lookupUrl, lookup.getQueryString());
+        LOGGER.debug("lookup url: {}", apiCall);
+        final HttpGet req = new HttpGet(apiCall);
+        return httpClient.execute(req, defaultLookupHandler);
+    }
+    
     /**
      * {@inheritDoc}
      * 
@@ -269,5 +294,18 @@ public final class JsonNominatimClient implements NominatimClient {
         final NominatimReverseRequest q = new NominatimReverseRequest();
         q.setQuery(OsmType.from(type), id);
         return this.getAddress(q);
+    }
+    
+    /**
+     * {@inheritDoc}
+     * 
+     * @see fr.dudie.nominatim.client.NominatimClient#lookupAddress(String)
+     */
+    @Override
+    public List<Address> lookupAddress(final List<String> typeId) throws IOException {
+
+        final NominatimLookupRequest q = new NominatimLookupRequest();
+        q.setQuery(typeId);
+        return this.lookupAddress(q);
     }
 }

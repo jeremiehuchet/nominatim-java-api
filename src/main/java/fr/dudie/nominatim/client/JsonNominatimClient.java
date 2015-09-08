@@ -302,8 +302,12 @@ public final class JsonNominatimClient implements NominatimClient {
      * @see fr.dudie.nominatim.client.NominatimClient#lookupAddress(String)
      */
     @Override
-    public List<Address> lookupAddress(final List<String> typeId) throws IOException {
+    public List<Address> lookupAddress(final List<String> typeId) throws Exception {
 
+    	if(typeId.size() > 50) {
+    		throw new Exception("Cannot lookup more than 50 OSM items at a time");
+    	}
+    	
         final NominatimLookupRequest q = new NominatimLookupRequest();
         q.setQuery(typeId);
         return this.lookupAddress(q);

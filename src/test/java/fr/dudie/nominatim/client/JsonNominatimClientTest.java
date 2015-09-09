@@ -29,6 +29,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -46,6 +47,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.dudie.nominatim.client.request.NominatimLookupRequest;
 import fr.dudie.nominatim.client.request.NominatimSearchRequest;
 import fr.dudie.nominatim.model.Address;
 
@@ -53,6 +55,7 @@ import fr.dudie.nominatim.model.Address;
  * Test class for {@link JsonNominatimClient}.
  * 
  * @author Jérémie Huchet
+ * @author Sunil D S
  */
 public final class JsonNominatimClientTest {
 
@@ -190,7 +193,7 @@ public final class JsonNominatimClientTest {
     @Test
     public void testAddressWithDetails() throws IOException {
 
-        LOGGER.info("testReverseLookUpTypeOsmId");
+        LOGGER.info("testAddressWithDetails");
 
         final NominatimSearchRequest r = new NominatimSearchRequest();
         r.setQuery("rennes, france");
@@ -204,13 +207,13 @@ public final class JsonNominatimClientTest {
             assertTrue("at least one address detail is available", address.getAddressElements().length > 0);
         }
 
-        LOGGER.info("testReverseLookUpTypeOsmId");
+        LOGGER.info("testAddressWithDetails");
     }
 
     @Test
     public void testAddressWithoutDetails() throws IOException {
 
-        LOGGER.info("testReverseLookUpTypeOsmId");
+        LOGGER.info("testAddressWithoutDetails");
 
         final NominatimSearchRequest r = new NominatimSearchRequest();
         r.setQuery("rennes, france");
@@ -223,6 +226,58 @@ public final class JsonNominatimClientTest {
             assertNull("address details are not available in result", address.getAddressElements());
         }
 
-        LOGGER.info("testReverseLookUpTypeOsmId");
+        LOGGER.info("testAddressWithoutDetails");
     }
+    
+    @Test
+    public void testAddressLookupWithDetails() throws IOException {
+
+        LOGGER.info("testAddressLookupWithDetails");
+
+        final NominatimLookupRequest r = new NominatimLookupRequest();
+        
+		List<String> typeIds = new ArrayList<String>();
+		typeIds.add("R146656");
+		typeIds.add("W104393803");
+		typeIds.add("N240109189");
+		
+        r.setQuery(typeIds);
+        r.setAddressDetails(true);
+        final List<Address> addresses = nominatimClient.lookupAddress(r);
+
+        assertNotNull("result list is not null", addresses);
+        assertTrue("there is more than one result", addresses.size() > 0);
+        for (final Address address : addresses) {
+            assertNotNull("address details are available in result", address.getAddressElements());
+            assertTrue("at least one address detail is available", address.getAddressElements().length > 0);
+        }
+
+        LOGGER.info("testAddressLookupWithDetails");
+    }
+    
+    @Test
+    public void testAddressLookupWithoutDetails() throws IOException {
+
+        LOGGER.info("testAddressLookupWithDetails");
+
+        final NominatimLookupRequest r = new NominatimLookupRequest();
+        
+        List<String> typeIds = new ArrayList<String>();
+        typeIds.add("R146656");
+        typeIds.add("W104393803");
+        typeIds.add("N240109189");
+
+        r.setQuery(typeIds);
+        r.setAddressDetails(false);
+        final List<Address> addresses = nominatimClient.lookupAddress(r);
+
+        assertNotNull("result list is not null", addresses);
+        assertTrue("there is more than one result", addresses.size() > 0);
+        for (final Address address : addresses) {
+        	assertNull("address details are not available in result", address.getAddressElements());
+        }
+
+        LOGGER.info("testAddressLookupWithoutDetails");
+    }
+    
 }

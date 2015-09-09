@@ -25,6 +25,7 @@ package fr.dudie.nominatim.client;
 import java.io.IOException;
 import java.util.List;
 
+import fr.dudie.nominatim.client.request.NominatimLookupRequest;
 import fr.dudie.nominatim.client.request.NominatimReverseRequest;
 import fr.dudie.nominatim.client.request.NominatimSearchRequest;
 import fr.dudie.nominatim.model.Address;
@@ -33,6 +34,7 @@ import fr.dudie.nominatim.model.Address;
  * Interface to use the Nominatim Service.
  * 
  * @author Jérémie Huchet
+ * @author Sunil D S
  * @since 1.0
  */
 public interface NominatimClient {
@@ -109,6 +111,18 @@ public interface NominatimClient {
      */
     @Deprecated
     Address getAddress(String type, long id) throws IOException;
+    
+    /**
+     * This method can be used to lookup addresses with an OSM type and ID
+     * 
+     * @param typeId
+     *            [N|W|R]ID
+     * @return a list of addresses corresponding to the given OSM type and ID or <code>null</code> if no result found
+     * @throws IOException
+     *             a communication error occurred
+     * @since 3.2
+     */
+    List<Address> lookupAddress(List<String> typeId) throws IOException;
 
     /**
      * Search for addresses.
@@ -133,5 +147,17 @@ public interface NominatimClient {
      * @since 3.0
      */
     Address getAddress(NominatimReverseRequest reverse) throws IOException;
+    
+    /**
+     * Address lookup request.
+     * 
+     * @param lookup
+     *            a lookup request
+     * @return a list of addresses corresponding to the given OSM type and ID or <code>null</code> if no result found
+     * @throws IOException
+     *             a communication error occurred
+     * @since 3.2
+     */
+    List<Address> lookupAddress(NominatimLookupRequest lookup) throws IOException;
 
 }

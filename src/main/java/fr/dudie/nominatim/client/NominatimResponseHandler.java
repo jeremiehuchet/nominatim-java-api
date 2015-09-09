@@ -28,9 +28,9 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
 import org.apache.http.client.ResponseHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 
@@ -40,10 +40,6 @@ import com.google.gson.Gson;
  * @author Jérémie Huchet
  */
 public final class NominatimResponseHandler<T> implements ResponseHandler<T> {
-
-    /** The event logger. */
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(NominatimResponseHandler.class);
 
     /** Gson instance for Nominatim API calls. */
     private final Gson gsonInstance;
@@ -77,6 +73,10 @@ public final class NominatimResponseHandler<T> implements ResponseHandler<T> {
         final T addresses;
 
         try {
+            final StatusLine status = response.getStatusLine();
+            if (status.getStatusCode() >= HttpStatus.SC_BAD_REQUEST) {
+                throw new IOException(String.format("HTTP error: %s %s", status.getStatusCode(), status.getReasonPhrase()));
+            }
             content = response.getEntity().getContent();
             addresses = gsonInstance
                     .fromJson(new InputStreamReader(content, "utf-8"), responseType);

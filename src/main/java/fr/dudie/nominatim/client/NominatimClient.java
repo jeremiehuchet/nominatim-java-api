@@ -122,7 +122,7 @@ public interface NominatimClient {
      *             a communication error occurred
      * @since 3.2
      */
-    List<Address> lookupAddress(List<String> typeId) throws IOException, Exception;
+    List<Address> lookupAddress(List<String> typeId) throws IOException;
 
     /**
      * Search for addresses.

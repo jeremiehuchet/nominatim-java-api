@@ -262,11 +262,11 @@ public final class JsonNominatimClientTest {
 
         final NominatimLookupRequest r = new NominatimLookupRequest();
         
-		List<String> typeIds = new ArrayList<String>();
-		typeIds.add("R146656");
-		typeIds.add("W104393803");
-		typeIds.add("N240109189");
-		
+        List<String> typeIds = new ArrayList<String>();
+        typeIds.add("R146656");
+        typeIds.add("W104393803");
+        typeIds.add("N240109189");
+
         r.setQuery(typeIds);
         r.setAddressDetails(false);
         final List<Address> addresses = nominatimClient.lookupAddress(r);

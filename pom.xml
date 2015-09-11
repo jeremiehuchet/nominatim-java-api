@@ -27,7 +27,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>nominatim-api</artifactId>
-    <version>3.2-SNAPSHOT</version>
+    <version>3.2</version>
     <packaging>jar</packaging>
 
     <name>Nominatim Java API client</name>
@@ -47,7 +47,7 @@
         <url>https://github.com/kops/nominatim-java-api/tree/master</url>
         <connection>scm:git:git@github.com:kops/nominatim-java-api.git</connection>
         <developerConnection>scm:git:git@github.com:kops/nominatim-java-api.git</developerConnection>
-      <tag>HEAD</tag>
+      <tag>v3.2</tag>
   </scm>
 
     <issueManagement>

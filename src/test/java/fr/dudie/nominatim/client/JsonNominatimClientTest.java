@@ -279,5 +279,27 @@ public final class JsonNominatimClientTest {
 
         LOGGER.info("testAddressLookupWithoutDetails");
     }
-    
+
+    @Test
+    public void testBuildingLevelPlaceRank() throws IOException {
+        final NominatimSearchRequest r = new NominatimSearchRequest();
+        r.setQuery("2 rue de chateaudun, rennes, france");
+
+        final List<Address> addresses = nominatimClient.search(r);
+        assertEquals("there is one result", 1, addresses.size());
+        final Address result = addresses.get(0);
+        assertEquals("building level place rank", 30, result.getPlaceRank());
+    }
+
+    @Test
+    public void testStreetLevelPlaceRank() throws IOException {
+        final NominatimSearchRequest r = new NominatimSearchRequest();
+        r.setQuery("rue de chateaudun, rennes, france");
+
+        final List<Address> addresses = nominatimClient.search(r);
+        assertEquals("there is one result", 1, addresses.size());
+        final Address result = addresses.get(0);
+        assertEquals("streen level place rank", 26, result.getPlaceRank());
+    }
+
 }

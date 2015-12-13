@@ -119,6 +119,10 @@ public final class Address {
     /** The elements describing the address (ex: road, city, coutry...). */
     @SerializedName("address")
     private AddressElement[] addressElements;
+    
+    /** The elements rank (ex: 30 = building). */
+    @SerializedName("place_rank")
+    private int placeRank;
 
     @SerializedName("importance")
     private double importance;
@@ -419,6 +423,27 @@ public final class Address {
     public void setAddressElements(final AddressElement[] addressElements) {
 
         this.addressElements = addressElements;
+    }
+    
+    /**
+     * Gets the elements rank (ex: 30 = building).
+     * 
+     * @return the elements elements rank (ex: 30 = building).
+     */
+    public int getPlaceRank() {
+
+        return placeRank;
+    }
+
+    /**
+     * Sets the elements rank (ex: 30 = building).
+     * 
+     * @param rank
+     *            the elements elements rank (ex: 30 = building) to set
+     */
+    public void setPlaceRank(final int placeRank) {
+
+        this.placeRank = placeRank;
     }
 
     /**

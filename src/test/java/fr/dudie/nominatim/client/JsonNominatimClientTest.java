@@ -22,17 +22,10 @@ package fr.dudie.nominatim.client;
  * [/license]
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
+import fr.dudie.nominatim.client.request.NominatimLookupRequest;
+import fr.dudie.nominatim.client.request.NominatimSearchRequest;
+import fr.dudie.nominatim.client.request.paramhelper.PolygonFormat;
+import fr.dudie.nominatim.model.Address;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.http.client.HttpClient;
@@ -47,9 +40,13 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.dudie.nominatim.client.request.NominatimLookupRequest;
-import fr.dudie.nominatim.client.request.NominatimSearchRequest;
-import fr.dudie.nominatim.model.Address;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import static org.junit.Assert.*;
 
 /**
  * Test class for {@link JsonNominatimClient}.
@@ -108,6 +105,22 @@ public final class JsonNominatimClientTest {
         assertNull("no polygonpoint", address.getPolygonPoints());
 
         LOGGER.info("testGetAddress.end");
+    }
+
+    @Test
+    public void testSearchWithGeoJson() throws IOException {
+        LOGGER.info("testGeoJSON.start");
+        NominatimSearchRequest request = new NominatimSearchRequest();
+        request.setPolygonFormat(PolygonFormat.GEO_JSON);
+        request.setQuery("Catania");
+        final List<Address> addresses = nominatimClient.search(request);
+        LOGGER.debug(ToStringBuilder.reflectionToString(addresses, ToStringStyle.MULTI_LINE_STYLE));
+
+        assertNotNull("a result should be found", addresses);
+        assertFalse("a result should be found", addresses.isEmpty());
+        assertNotNull("found geoJSON point", addresses.get(0).getGeojson());
+
+        LOGGER.info("testGeoJSON.end");
     }
 
     @Test

@@ -22,6 +22,8 @@ package fr.dudie.nominatim.client;
  * [/license]
  */
 
+import com.github.filosganga.geogson.model.MultiPolygon;
+import com.google.common.collect.Iterables;
 import fr.dudie.nominatim.client.request.NominatimLookupRequest;
 import fr.dudie.nominatim.client.request.NominatimSearchRequest;
 import fr.dudie.nominatim.client.request.paramhelper.PolygonFormat;
@@ -35,7 +37,6 @@ import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.SingleClientConnManager;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +51,7 @@ import static org.junit.Assert.*;
 
 /**
  * Test class for {@link JsonNominatimClient}.
- * 
+ *
  * @author Jérémie Huchet
  * @author Sunil D S
  */
@@ -70,7 +71,7 @@ public final class JsonNominatimClientTest {
 
     /**
      * Instantiates the test.
-     * 
+     *
      * @throws IOException
      *             an error occurred during initialization
      */
@@ -109,12 +110,45 @@ public final class JsonNominatimClientTest {
 
     @Test
     public void testSearchWithGeoJson() throws IOException {
+
+//                Gson gson = new GsonBuilder()
+//                .registerTypeAdapterFactory(new GeometryAdapterFactory())
+//                .create();
+//
+//        String point = "{\"type\":\"Point\",\"coordinates\": [23.5,20.125]}";
+//        String lineString = "{\"type\":\"LineString\",\"coordinates\":[[15.0974027,37.520589],[15.0973912,37.5204876],[15.0974013,37.5204166],[15.097455,37.5200768]]}";
+//        String geometryCollection = "{\n" +
+//                "    \"type\": \"GeometryCollection\",\n" +
+//                "    \"geometries\": [{\n" +
+//                "      \"type\": \"Point\",\n" +
+//                "      \"coordinates\": [0, 0]\n" +
+//                "    }, {\n" +
+//                "      \"type\": \"LineString\",\n" +
+//                "      \"coordinates\": [[0, 0], [1, 0]]\n" +
+//                "    }]\n" +
+//                "  }";
+//
+//
+//       Geometry geometry = gson.fromJson(geometryCollection,Geometry.class);
+//        assertNotNull(geometry);
+//
+//        if(gson.fromJson(point,Geometry.class) instanceof Point)
+//            assertTrue(true);
+//        if(gson.fromJson(lineString,Geometry.class) instanceof LineString)
+//            assertTrue(true);
+//        if(!(gson.fromJson(lineString,Geometry.class) instanceof Point))
+//            assertTrue(true);
+
+
         LOGGER.info("testGeoJSON.start");
         NominatimSearchRequest request = new NominatimSearchRequest();
         request.setPolygonFormat(PolygonFormat.GEO_JSON);
-        request.setQuery("Catania");
+        request.setQuery("Italia");
         final List<Address> addresses = nominatimClient.search(request);
         LOGGER.debug(ToStringBuilder.reflectionToString(addresses, ToStringStyle.MULTI_LINE_STYLE));
+
+        assertEquals(Iterables.size(((MultiPolygon)addresses.get(0).getGeojson()).polygons().iterator().next().holes()),2);
+
 
         assertNotNull("a result should be found", addresses);
         assertFalse("a result should be found", addresses.isEmpty());
@@ -172,7 +206,7 @@ public final class JsonNominatimClientTest {
     }
 
     @Test
-    @Ignore
+//    @Ignore
     public void testReverseLookUpZoomLevelCanBeControlled() throws Exception {
 
         LOGGER.info("testReverseLookUpZoomLevelCanBeControlled.start");
@@ -188,7 +222,7 @@ public final class JsonNominatimClientTest {
     }
 
     @Test
-    @Ignore
+//    @Ignore
     public void testReverseLookUpTypeOsmId() throws Exception {
 
         LOGGER.info("testReverseLookUpTypeOsmId");
@@ -241,19 +275,19 @@ public final class JsonNominatimClientTest {
 
         LOGGER.info("testAddressWithoutDetails");
     }
-    
+
     @Test
     public void testAddressLookupWithDetails() throws IOException {
 
         LOGGER.info("testAddressLookupWithDetails");
 
         final NominatimLookupRequest r = new NominatimLookupRequest();
-        
-		List<String> typeIds = new ArrayList<String>();
-		typeIds.add("R146656");
-		typeIds.add("W104393803");
-		typeIds.add("N240109189");
-		
+
+        List<String> typeIds = new ArrayList<String>();
+        typeIds.add("R146656");
+        typeIds.add("W104393803");
+        typeIds.add("N240109189");
+
         r.setQuery(typeIds);
         r.setAddressDetails(true);
         final List<Address> addresses = nominatimClient.lookupAddress(r);
@@ -267,14 +301,14 @@ public final class JsonNominatimClientTest {
 
         LOGGER.info("testAddressLookupWithDetails");
     }
-    
+
     @Test
     public void testAddressLookupWithoutDetails() throws IOException {
 
         LOGGER.info("testAddressLookupWithDetails");
 
         final NominatimLookupRequest r = new NominatimLookupRequest();
-        
+
         List<String> typeIds = new ArrayList<String>();
         typeIds.add("R146656");
         typeIds.add("W104393803");
@@ -287,7 +321,7 @@ public final class JsonNominatimClientTest {
         assertNotNull("result list is not null", addresses);
         assertTrue("there is more than one result", addresses.size() > 0);
         for (final Address address : addresses) {
-        	assertNull("address details are not available in result", address.getAddressElements());
+            assertNull("address details are not available in result", address.getAddressElements());
         }
 
         LOGGER.info("testAddressLookupWithoutDetails");

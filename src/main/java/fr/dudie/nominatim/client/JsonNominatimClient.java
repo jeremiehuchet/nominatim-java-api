@@ -177,6 +177,7 @@ public final class JsonNominatimClient implements NominatimClient {
         gsonBuilder.registerTypeAdapter(BoundingBox.class, new BoundingBoxDeserializer());
         gsonBuilder.registerTypeAdapterFactory(new GeometryAdapterFactory());
 
+
         gsonInstance = gsonBuilder.create();
 
         // prepare httpclient

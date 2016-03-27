@@ -56,7 +56,7 @@ public class ExtendedSearchQuery extends SearchQuery {
     private String country;
 
     /** A postal code. */
-    @QueryParameter("postal_code=%s")
+    @QueryParameter("postalcode=%s")
     private String postalCode;
 
     /**

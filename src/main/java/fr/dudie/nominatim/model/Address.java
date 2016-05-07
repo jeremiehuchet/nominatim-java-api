@@ -22,6 +22,7 @@ package fr.dudie.nominatim.model;
  * [/license]
  */
 
+import com.github.filosganga.geogson.model.Geometry;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -93,8 +94,12 @@ public final class Address {
     private BoundingBox boundingBox;
 
     /** The polygon points representing the element. */
+    @Deprecated
     @SerializedName("polygonpoints")
     private PolygonPoint[] polygonPoints;
+
+    @SerializedName("geojson")
+    private Geometry geojson;
 
     /** The address longitude. */
     @SerializedName("lon")
@@ -237,14 +242,35 @@ public final class Address {
     }
 
     /**
+     * Gets the  GeoJSON geometry representing the element.
+     *
+     * @return the Geometry object representing the element
+     */
+    public Geometry getGeojson() {
+        return geojson;
+    }
+
+    /**
+     * Sets the GeoJSON geometry representing the element.
+     *
+     * @param geojson
+     *            the geoJSON object of the element to set
+     */
+    public void setGeojson(Geometry geojson) {
+        this.geojson = geojson;
+    }
+
+    /**
      * Gets the polygon points representing the element.
      * 
      * @return the polygon points representing the element
      */
+    @Deprecated
     public PolygonPoint[] getPolygonPoints() {
 
         return polygonPoints;
     }
+
 
     /**
      * Sets the polygon points representing the element.
@@ -252,6 +278,7 @@ public final class Address {
      * @param polygonPoints
      *            the polygon points representing the element to set
      */
+    @Deprecated
     public void setPolygonPoints(final PolygonPoint[] polygonPoints) {
 
         this.polygonPoints = polygonPoints;
@@ -417,7 +444,7 @@ public final class Address {
     /**
      * Sets the elements describing the address (ex: road, city, coutry...).
      * 
-     * @param address
+     * @param addressElements
      *            the elements describing the address (ex: road, city, coutry...) to set
      */
     public void setAddressElements(final AddressElement[] addressElements) {
@@ -438,7 +465,7 @@ public final class Address {
     /**
      * Sets the elements rank (ex: 30 = building).
      * 
-     * @param rank
+     * @param placeRank
      *            the elements elements rank (ex: 30 = building) to set
      */
     public void setPlaceRank(final int placeRank) {
@@ -459,7 +486,6 @@ public final class Address {
     /**
      * Gets the address importance.
      *
-     * @return the address importance
      */
     public void setImportance(final double importance) {
 

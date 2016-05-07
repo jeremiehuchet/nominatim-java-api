@@ -22,20 +22,10 @@ package fr.dudie.nominatim.client;
  * [/license]
  */
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.List;
-
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.github.filosganga.geogson.gson.GeometryAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-
 import fr.dudie.nominatim.client.request.NominatimLookupRequest;
 import fr.dudie.nominatim.client.request.NominatimReverseRequest;
 import fr.dudie.nominatim.client.request.NominatimSearchRequest;
@@ -48,6 +38,15 @@ import fr.dudie.nominatim.model.Address;
 import fr.dudie.nominatim.model.AddressElement;
 import fr.dudie.nominatim.model.BoundingBox;
 import fr.dudie.nominatim.model.PolygonPoint;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.List;
 
 /**
  * An implementation of the Nominatim Api Service.
@@ -176,6 +175,8 @@ public final class JsonNominatimClient implements NominatimClient {
         gsonBuilder.registerTypeAdapter(PolygonPoint.class, new PolygonPointDeserializer());
         gsonBuilder.registerTypeAdapter(PolygonPoint[].class, new ArrayOfPolygonPointsDeserializer());
         gsonBuilder.registerTypeAdapter(BoundingBox.class, new BoundingBoxDeserializer());
+        gsonBuilder.registerTypeAdapterFactory(new GeometryAdapterFactory());
+
 
         gsonInstance = gsonBuilder.create();
 
@@ -280,13 +281,13 @@ public final class JsonNominatimClient implements NominatimClient {
     @Override
     public Address getAddress(final int longitudeE6, final int latitudeE6) throws IOException {
 
-        return this.getAddress((double) (longitudeE6 / 1E6), (double) (latitudeE6 / 1E6));
+        return this.getAddress(longitudeE6 / 1E6, latitudeE6 / 1E6);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see fr.dudie.nominatim.client.NominatimClient#getAddress(String, int)
+     *
+     * @see fr.dudie.nominatim.client.NominatimClient#getAddress(fr.dudie.nominatim.client.request.NominatimReverseRequest)
      */
     @Override
     public Address getAddress(final String type, final long id) throws IOException {

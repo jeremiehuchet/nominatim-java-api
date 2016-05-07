@@ -90,7 +90,7 @@
         <dependency>
             <groupId>com.github.filosganga</groupId>
             <artifactId>geogson-core</artifactId>
-            <version>1.1.92</version>
+            <version>1.1.97</version>
         </dependency>
 
         <dependency>

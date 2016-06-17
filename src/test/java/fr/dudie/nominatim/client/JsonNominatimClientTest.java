@@ -22,17 +22,9 @@ package fr.dudie.nominatim.client;
  * [/license]
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
+import fr.dudie.nominatim.client.request.NominatimLookupRequest;
+import fr.dudie.nominatim.client.request.NominatimSearchRequest;
+import fr.dudie.nominatim.model.Address;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.http.client.HttpClient;
@@ -47,35 +39,46 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.dudie.nominatim.client.request.NominatimLookupRequest;
-import fr.dudie.nominatim.client.request.NominatimSearchRequest;
-import fr.dudie.nominatim.model.Address;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import static org.junit.Assert.*;
 
 /**
  * Test class for {@link JsonNominatimClient}.
- * 
+ *
  * @author Jérémie Huchet
  * @author Sunil D S
  */
 public final class JsonNominatimClientTest {
 
-    /** The event logger. */
+    /**
+     * The event logger.
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonNominatimClientTest.class);
 
-    /** The tested Nominatim client. */
+    /**
+     * The tested Nominatim client.
+     */
     private static JsonNominatimClient nominatimClient;
 
-    /** Path to the properties file. */
+    /**
+     * Path to the properties file.
+     */
     private static final String PROPS_PATH = "/nominatim-client-test.properties";
 
-    /** Loaded properties. */
+    /**
+     * Loaded properties.
+     */
     private static final Properties PROPS = new Properties();
 
     /**
      * Instantiates the test.
-     * 
-     * @throws IOException
-     *             an error occurred during initialization
+     *
+     * @throws IOException an error occurred during initialization
      */
     public JsonNominatimClientTest() throws IOException {
 
@@ -211,6 +214,26 @@ public final class JsonNominatimClientTest {
     }
 
     @Test
+    public void testAddressWithNameDetails() throws IOException {
+
+        LOGGER.info("testAddressWithDetails");
+
+        final NominatimSearchRequest r = new NominatimSearchRequest();
+        r.setQuery("pkin");
+        r.setName(true);
+        final List<Address> addresses = nominatimClient.search(r);
+
+        assertNotNull("result list is not null", addresses);
+        assertTrue("there is more than one result", addresses.size() > 0);
+        for (final Address address : addresses) {
+            assertNotNull("address details are available in result", address.getNamedetails());
+            assertTrue("at least one address detail is available", address.getNamedetails().length > 0);
+        }
+
+        LOGGER.info("testAddressWithDetails");
+    }
+
+    @Test
     public void testAddressWithoutDetails() throws IOException {
 
         LOGGER.info("testAddressWithoutDetails");
@@ -228,19 +251,19 @@ public final class JsonNominatimClientTest {
 
         LOGGER.info("testAddressWithoutDetails");
     }
-    
+
     @Test
     public void testAddressLookupWithDetails() throws IOException {
 
         LOGGER.info("testAddressLookupWithDetails");
 
         final NominatimLookupRequest r = new NominatimLookupRequest();
-        
-		List<String> typeIds = new ArrayList<String>();
-		typeIds.add("R146656");
-		typeIds.add("W104393803");
-		typeIds.add("N240109189");
-		
+
+        List<String> typeIds = new ArrayList<String>();
+        typeIds.add("R146656");
+        typeIds.add("W104393803");
+        typeIds.add("N240109189");
+
         r.setQuery(typeIds);
         r.setAddressDetails(true);
         final List<Address> addresses = nominatimClient.lookupAddress(r);
@@ -254,14 +277,14 @@ public final class JsonNominatimClientTest {
 
         LOGGER.info("testAddressLookupWithDetails");
     }
-    
+
     @Test
     public void testAddressLookupWithoutDetails() throws IOException {
 
         LOGGER.info("testAddressLookupWithDetails");
 
         final NominatimLookupRequest r = new NominatimLookupRequest();
-        
+
         List<String> typeIds = new ArrayList<String>();
         typeIds.add("R146656");
         typeIds.add("W104393803");
@@ -274,7 +297,7 @@ public final class JsonNominatimClientTest {
         assertNotNull("result list is not null", addresses);
         assertTrue("there is more than one result", addresses.size() > 0);
         for (final Address address : addresses) {
-        	assertNull("address details are not available in result", address.getAddressElements());
+            assertNull("address details are not available in result", address.getAddressElements());
         }
 
         LOGGER.info("testAddressLookupWithoutDetails");

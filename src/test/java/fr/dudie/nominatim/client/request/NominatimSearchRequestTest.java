@@ -22,14 +22,13 @@ package fr.dudie.nominatim.client.request;
  * [/license]
  */
 
-import static org.junit.Assert.*;
-
-import java.io.UnsupportedEncodingException;
-
+import fr.dudie.nominatim.model.BoundingBox;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.dudie.nominatim.model.BoundingBox;
+import java.io.UnsupportedEncodingException;
+
+import static org.junit.Assert.assertEquals;
 
 public class NominatimSearchRequestTest {
 
@@ -61,6 +60,13 @@ public class NominatimSearchRequestTest {
     }
 
     @Test
+    public void simpleQueryWithName() throws UnsupportedEncodingException {
+        req.setQuery("france");
+        req.setName(true);
+        assertEquals("q=france&namedetails=1", req.getQueryString());
+    }
+
+    @Test
     public void simpleQueryWithoutAddress() throws UnsupportedEncodingException {
         req.setQuery("france");
         req.setAddress(false);
@@ -84,7 +90,7 @@ public class NominatimSearchRequestTest {
         final double n = 48.1462173461914;
         final double e = -1.24950230121613;
         final double s = 48.0747871398926;
-        final String expectedQueryString   = "q=france&viewbox=-1.14465546607971,48.14621734619140,-1.24950230121613,48.07478713989260";
+        final String expectedQueryString = "q=france&viewbox=-1.14465546607971,48.14621734619140,-1.24950230121613,48.07478713989260";
         final String expectedQueryStringE6 = "q=france&viewbox=-1.14465500000000,48.14621700000000,-1.24950200000000,48.07478700000000";
 
         req.setQuery("france");

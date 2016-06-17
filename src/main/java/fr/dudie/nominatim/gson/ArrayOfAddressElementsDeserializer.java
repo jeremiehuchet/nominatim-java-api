@@ -33,11 +33,11 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 
-import fr.dudie.nominatim.model.AddressElement;
+import fr.dudie.nominatim.model.Element;
 
 /**
  * Deserializes the attribute named "address" of a response from the Nominatim API. It will become
- * an Array of {@link AddressElement}s.
+ * an Array of {@link Element}s.
  * <p>
  * Sample "address" attribute:
  * 
@@ -56,7 +56,7 @@ import fr.dudie.nominatim.model.AddressElement;
  * 
  * @author Jérémie Huchet
  */
-public final class ArrayOfAddressElementsDeserializer implements JsonDeserializer<AddressElement[]> {
+public final class ArrayOfAddressElementsDeserializer implements JsonDeserializer<Element[]> {
 
     /** The event logger. */
     private static final Logger LOGGER = LoggerFactory
@@ -69,16 +69,16 @@ public final class ArrayOfAddressElementsDeserializer implements JsonDeserialize
      *      java.lang.reflect.Type, com.google.gson.JsonDeserializationContext)
      */
     @Override
-    public AddressElement[] deserialize(final JsonElement json, final Type typeOfT,
-            final JsonDeserializationContext context) {
+    public Element[] deserialize(final JsonElement json, final Type typeOfT,
+                                 final JsonDeserializationContext context) {
 
-        final AddressElement[] elements;
+        final Element[] elements;
 
         if (json.isJsonObject()) {
-            elements = new AddressElement[json.getAsJsonObject().entrySet().size()];
+            elements = new Element[json.getAsJsonObject().entrySet().size()];
             int i = 0;
             for (final Entry<String, JsonElement> elem : json.getAsJsonObject().entrySet()) {
-                elements[i] = new AddressElement();
+                elements[i] = new Element();
                 elements[i].setKey(elem.getKey());
                 elements[i].setValue(elem.getValue().getAsString());
                 i++;

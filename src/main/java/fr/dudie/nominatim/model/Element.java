@@ -23,7 +23,7 @@ package fr.dudie.nominatim.model;
  */
 
 /**
- * Represents an address element.
+ * Represents an address element or nameDetails element.
  * <p>
  * Address element returned from the OpenStreetMap Nominatim API looks like the following:
  * 
@@ -39,13 +39,25 @@ package fr.dudie.nominatim.model;
  *     "country_code": "fr"
  * }
  * </pre>
- * 
+ *
+ * <p>
+ * NameDetails element returned from the OpenStreetMap Nominatim API looks like the following:
+ * <pre>
+ *  {
+ *      "name":"Pałac Kultury i Nauki","name:de":"Kultur- und Wissenschaftspalast",
+ *      "name:en":"Palace of Culture and Science",
+ *      (...)
+ *      "name:hu":"Kultúra és Tudomány Palotája","name:ru":"Дворец культуры и науки",
+ *      "alt_name":"Pałac Młodzieży",
+ *      "short_name":"PKiN"}
+ * </pre>
+ *
  * Keys can't be enumerated entirely, so the java representation is a list of multiple
- * {@link AddressElement}s.
+ * {@link Element}s.
  * 
  * @author Jérémie Huchet
  */
-public class AddressElement {
+public class Element {
 
     /** The element key. */
     private String key;

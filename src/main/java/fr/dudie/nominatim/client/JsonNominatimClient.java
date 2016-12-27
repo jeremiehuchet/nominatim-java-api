@@ -45,7 +45,7 @@ import fr.dudie.nominatim.gson.ArrayOfPolygonPointsDeserializer;
 import fr.dudie.nominatim.gson.BoundingBoxDeserializer;
 import fr.dudie.nominatim.gson.PolygonPointDeserializer;
 import fr.dudie.nominatim.model.Address;
-import fr.dudie.nominatim.model.AddressElement;
+import fr.dudie.nominatim.model.Element;
 import fr.dudie.nominatim.model.BoundingBox;
 import fr.dudie.nominatim.model.PolygonPoint;
 
@@ -172,7 +172,7 @@ public final class JsonNominatimClient implements NominatimClient {
         // prepare gson instance
         final GsonBuilder gsonBuilder = new GsonBuilder();
 
-        gsonBuilder.registerTypeAdapter(AddressElement[].class, new ArrayOfAddressElementsDeserializer());
+        gsonBuilder.registerTypeAdapter(Element[].class, new ArrayOfAddressElementsDeserializer());
         gsonBuilder.registerTypeAdapter(PolygonPoint.class, new PolygonPointDeserializer());
         gsonBuilder.registerTypeAdapter(PolygonPoint[].class, new ArrayOfPolygonPointsDeserializer());
         gsonBuilder.registerTypeAdapter(BoundingBox.class, new BoundingBoxDeserializer());

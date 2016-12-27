@@ -78,6 +78,13 @@ public class NominatimSearchRequest extends NominatimRequest {
     private Boolean address;
 
     /**
+     * Include a list of alternative names in the results.
+     * These may include language variants, references, operator and brand.
+     */
+    @QueryParameter(value = "namedetails=%s", serializer = BooleanSerializer.class)
+    private Boolean name;
+
+    /**
      * If you do not want certain openstreetmap objects to appear in the search result, give a comma separated list of
      * the place_id's you want to skip.
      */
@@ -272,6 +279,24 @@ public class NominatimSearchRequest extends NominatimRequest {
      */
     public void setAddress(final boolean address) {
         this.address = address;
+    }
+
+    /**
+     * When true, include a list of alternative names in the results.
+     *
+     * @return
+     */
+    public Boolean getName() {
+        return name;
+    }
+
+    /**
+     * Include a list of alternative names in the results.
+     *
+     * @param name
+     */
+    public void setName(Boolean name) {
+        this.name = name;
     }
 
     /**

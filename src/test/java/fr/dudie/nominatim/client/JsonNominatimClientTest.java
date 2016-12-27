@@ -211,6 +211,26 @@ public final class JsonNominatimClientTest {
     }
 
     @Test
+    public void testAddressWithNameDetails() throws IOException {
+
+        LOGGER.info("testAddressWithDetails");
+
+        final NominatimSearchRequest r = new NominatimSearchRequest();
+        r.setQuery("pkin");
+        r.setName(true);
+        final List<Address> addresses = nominatimClient.search(r);
+
+        assertNotNull("result list is not null", addresses);
+        assertTrue("there is more than one result", addresses.size() > 0);
+        for (final Address address : addresses) {
+            assertNotNull("address details are available in result", address.getNameDetails());
+            assertTrue("at least one address detail is available", address.getNameDetails().length > 0);
+        }
+
+        LOGGER.info("testAddressWithDetails");
+    }
+
+    @Test
     public void testAddressWithoutDetails() throws IOException {
 
         LOGGER.info("testAddressWithoutDetails");
@@ -228,19 +248,19 @@ public final class JsonNominatimClientTest {
 
         LOGGER.info("testAddressWithoutDetails");
     }
-    
+
     @Test
     public void testAddressLookupWithDetails() throws IOException {
 
         LOGGER.info("testAddressLookupWithDetails");
 
         final NominatimLookupRequest r = new NominatimLookupRequest();
-        
-		List<String> typeIds = new ArrayList<String>();
-		typeIds.add("R146656");
-		typeIds.add("W104393803");
-		typeIds.add("N240109189");
-		
+
+        List<String> typeIds = new ArrayList<String>();
+        typeIds.add("R146656");
+        typeIds.add("W104393803");
+        typeIds.add("N240109189");
+
         r.setQuery(typeIds);
         r.setAddressDetails(true);
         final List<Address> addresses = nominatimClient.lookupAddress(r);
@@ -274,7 +294,7 @@ public final class JsonNominatimClientTest {
         assertNotNull("result list is not null", addresses);
         assertTrue("there is more than one result", addresses.size() > 0);
         for (final Address address : addresses) {
-        	assertNull("address details are not available in result", address.getAddressElements());
+            assertNull("address details are not available in result", address.getAddressElements());
         }
 
         LOGGER.info("testAddressLookupWithoutDetails");

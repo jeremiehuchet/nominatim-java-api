@@ -118,9 +118,17 @@ public final class Address {
 
     /** The elements describing the address (ex: road, city, coutry...). */
     @SerializedName("address")
-    private AddressElement[] addressElements;
-    
-    /** The elements rank (ex: 30 = building). */
+    private Element[] addressElements;
+
+    /**
+     * The elements describing the namedetails (ex: name, operator, short name...).
+     */
+    @SerializedName("namedetails")
+    private Element[] namedetails;
+
+    /**
+     * The elements rank (ex: 30 = building).
+     */
     @SerializedName("place_rank")
     private int placeRank;
 
@@ -409,22 +417,41 @@ public final class Address {
      * 
      * @return the elements describing the address (ex: road, city, coutry...)
      */
-    public AddressElement[] getAddressElements() {
+    public Element[] getAddressElements() {
 
         return addressElements;
     }
 
     /**
      * Sets the elements describing the address (ex: road, city, coutry...).
-     * 
-     * @param address
+     *
+     * @param addressElements
      *            the elements describing the address (ex: road, city, coutry...) to set
      */
-    public void setAddressElements(final AddressElement[] addressElements) {
+    public void setAddressElements(final Element[] addressElements) {
 
         this.addressElements = addressElements;
     }
-    
+
+    /**
+     * Sets the elements describing the namedetails (ex: name, operator, short name...).
+     *
+     * @return name
+     */
+    public Element[] getNameDetails() {
+        return namedetails;
+    }
+
+    /**
+     * Sets the elements describing the namedetails (ex: name, operator, short name...).
+     *
+     * @param namedetails
+     *            the elements describing the namedetails (ex: name, operator, short name...)
+     */
+    public void setNameDetails(Element[] namedetails) {
+        this.namedetails = namedetails;
+    }
+
     /**
      * Gets the elements rank (ex: 30 = building).
      * 

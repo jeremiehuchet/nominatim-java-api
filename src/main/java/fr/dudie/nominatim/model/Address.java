@@ -23,6 +23,7 @@ package fr.dudie.nominatim.model;
  */
 
 import com.google.gson.annotations.SerializedName;
+import com.vividsolutions.jts.geom.Geometry;
 
 /**
  * Represents a search result.
@@ -93,8 +94,13 @@ public final class Address {
     private BoundingBox boundingBox;
 
     /** The polygon points representing the element. */
+    @Deprecated
     @SerializedName("polygonpoints")
     private PolygonPoint[] polygonPoints;
+
+    /** The geojson representing the element. */
+    @SerializedName("geojson")
+    private Geometry geojson;
 
     /** The address longitude. */
     @SerializedName("lon")
@@ -266,6 +272,20 @@ public final class Address {
     }
 
     /**
+	 * @return the geojson
+	 */
+	public Geometry getGeojson() {
+		return geojson;
+	}
+
+	/**
+	 * @param geojson the geojson to set
+	 */
+	public void setGeojson(Geometry geojson) {
+		this.geojson = geojson;
+	}
+
+	/**
      * Gets the address longitude.
      * 
      * @return the address longitude

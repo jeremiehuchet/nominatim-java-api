@@ -32,6 +32,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.filosganga.geogson.gson.GeometryAdapterFactory;
+import com.github.filosganga.geogson.jts.JtsAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -176,6 +178,9 @@ public final class JsonNominatimClient implements NominatimClient {
         gsonBuilder.registerTypeAdapter(PolygonPoint.class, new PolygonPointDeserializer());
         gsonBuilder.registerTypeAdapter(PolygonPoint[].class, new ArrayOfPolygonPointsDeserializer());
         gsonBuilder.registerTypeAdapter(BoundingBox.class, new BoundingBoxDeserializer());
+
+        gsonBuilder.registerTypeAdapterFactory(new JtsAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new GeometryAdapterFactory());
 
         gsonInstance = gsonBuilder.create();
 

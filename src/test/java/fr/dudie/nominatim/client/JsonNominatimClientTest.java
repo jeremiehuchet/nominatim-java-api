@@ -47,8 +47,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.vividsolutions.jts.geom.Geometry;
+
 import fr.dudie.nominatim.client.request.NominatimLookupRequest;
 import fr.dudie.nominatim.client.request.NominatimSearchRequest;
+import fr.dudie.nominatim.client.request.paramhelper.PolygonFormat;
 import fr.dudie.nominatim.model.Address;
 
 /**
@@ -106,6 +109,7 @@ public final class JsonNominatimClientTest {
         assertNotNull("a result should be found", address);
         assertTrue("address expose the OSM place_id", address.getPlaceId() > 0);
         assertNull("no polygonpoint", address.getPolygonPoints());
+        assertNull("no geojson", address.getGeojson());
 
         LOGGER.info("testGetAddress.end");
     }
@@ -125,6 +129,29 @@ public final class JsonNominatimClientTest {
         assertTrue("list is not empty", !addresses.isEmpty());
 
         LOGGER.info("testSearchWithResults.end");
+    }
+
+    @Test
+    public void testSearchWithGeoJsonResults() throws IOException {
+
+        LOGGER.info("testSearchWithGeoJsonResults.start");
+
+        NominatimSearchRequest request = new NominatimSearchRequest();
+        request.setPolygonFormat(PolygonFormat.GEO_JSON);
+        request.setQuery("vitré, rennes");
+
+        final List<Address> addresses = nominatimClient.search(request);
+
+        assertNotNull("result list is never null", addresses);
+        assertTrue("list is not empty", !addresses.isEmpty());
+
+        for (final Address address : addresses) {
+            final Geometry geom = address.getGeojson();
+            assertNotNull("geometry/geojson of address is available in result", geom);
+            assertTrue("geometry/geojson of address has at least one vertex", geom.getNumPoints() > 0);
+        }
+
+        LOGGER.info("testSearchWithGeoJsonResults.end");
     }
 
     @Test

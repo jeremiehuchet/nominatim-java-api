@@ -8,12 +8,12 @@
   it under the terms of the GNU Lesser General Public License as
   published by the Free Software Foundation, either version 3 of the
   License, or (at your option) any later version.
-  
+
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU General Lesser Public License for more details.
-  
+
   You should have received a copy of the GNU General Lesser Public
   License along with this program.  If not, see
   <http://www.gnu.org/licenses/lgpl-3.0.html>.
@@ -57,12 +57,16 @@
 
     <properties>
         <!-- compile time deps versions -->
-        <slf4j.version>1.6.1</slf4j.version>
-        <httpcomponents.version>4.0.2</httpcomponents.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <httpcomponents.version>4.0.3</httpcomponents.version>
 
         <!-- test deps versions -->
-        <junit.version>4.8.2</junit.version>
-        <commons-lang.version>2.6</commons-lang.version>
+        <junit.version>4.12</junit.version>
+        <commons-lang3.version>3.5</commons-lang3.version>
+
+        <!-- GSON deps versions -->
+        <gson.version>2.6.2</gson.version>
+        <geogson-jts.version>1.1.100</geogson-jts.version>
     </properties>
 
     <dependencies>
@@ -74,7 +78,12 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.1</version>
+            <version>${gson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.filosganga</groupId>
+            <artifactId>geogson-jts</artifactId>
+            <version>${geogson-jts.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -89,9 +98,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>${commons-lang.version}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
             <type>jar</type>
             <scope>test</scope>
         </dependency>

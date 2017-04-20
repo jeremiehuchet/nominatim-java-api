@@ -16,7 +16,7 @@ Maven users can add the following dependency to their pom.xml:
       <version>3.2</version>
     </dependency>
 
-*Note that it is fair and reasonable to specify an email address when using the Nominatim API*, see the [Notminatim Usage Policy](http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy) for more informations.
+*Note that it is fair and reasonable to specify an email address when using the Nominatim API*, see the [Notminatim Usage Policy](https://operations.osmfoundation.org/policies/nominatim/) for more informations.
 
 > If you are sending in large numbers of requests it is particularly important that we have some way of contacting you - otherwise, in the event of problems, the only alternative is to ban your IP and wait for you to contact us.
 

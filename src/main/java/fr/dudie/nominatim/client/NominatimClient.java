@@ -41,6 +41,8 @@ public interface NominatimClient {
 
     /**
      * Search for results with the given query.
+     * <p>
+     * See also {@link #search(NominatimSearchRequest)} to obtain more result details.
      * 
      * @param query
      *            the query

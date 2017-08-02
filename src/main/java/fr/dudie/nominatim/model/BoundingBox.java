@@ -22,6 +22,8 @@ package fr.dudie.nominatim.model;
  * [/license]
  */
 
+import java.io.Serializable;
+
 /**
  * Represents a viewport.
  * 
@@ -36,7 +38,7 @@ package fr.dudie.nominatim.model;
  * 
  * @author Jérémie Huchet
  */
-public class BoundingBox {
+public class BoundingBox implements Serializable {
 
     /** The north bound of the boundingbox. */
     private double north;

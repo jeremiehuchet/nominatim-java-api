@@ -24,6 +24,7 @@ package fr.dudie.nominatim.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.vividsolutions.jts.geom.Geometry;
+import java.io.Serializable;
 
 /**
  * Represents a search result.
@@ -72,7 +73,7 @@ import com.vividsolutions.jts.geom.Geometry;
  * 
  * @author Jérémie Huchet
  */
-public final class Address {
+public final class Address implements Serializable {
 
     /** The OpenStreetMap place id. */
     @SerializedName("place_id")

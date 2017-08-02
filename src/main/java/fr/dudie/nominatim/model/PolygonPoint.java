@@ -22,12 +22,14 @@ package fr.dudie.nominatim.model;
  * [/license]
  */
 
+import java.io.Serializable;
+
 /**
  * Represents a geographical location.
  * 
  * @author Jérémie Huchet
  */
-public class PolygonPoint {
+public class PolygonPoint implements Serializable {
 
     /** The point's longitude. */
     private double longitude;

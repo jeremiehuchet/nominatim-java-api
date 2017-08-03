@@ -54,7 +54,7 @@ import com.vividsolutions.jts.geom.Geometry;
  *     "lat": "48.11911095",
  *     "lon": "-1.6499083",
  *     "display_name": "Boulevard de Vitré, Jeanne d'Arc, Rennes, Britanny, 35042, France",
- *     "class": "highway",
+ *     "category": "highway",
  *     "type": "primary",
  *     "address": {
  *         "road": "Boulevard de Vitré",
@@ -114,8 +114,8 @@ public final class Address {
     @SerializedName("display_name")
     private String displayName;
 
-    /** The OpenStreetMap element class (ex: highway). */
-    @SerializedName("class")
+    /** The OpenStreetMap element category (ex: highway). */
+    @SerializedName("category")
     private String elementClass;
 
     /** The OpenStreetMap element type (ex: residential). */

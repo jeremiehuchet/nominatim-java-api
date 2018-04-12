@@ -63,7 +63,7 @@ public final class JsonNominatimClient implements NominatimClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonNominatimClient.class);
     
     /** The default nominatim base URL. */
-    private static final String DEFAULT_BASE_URL = "http://nominatim.openstreetmap.org/";
+    private static final String DEFAULT_BASE_URL = "https://nominatim.openstreetmap.org/";
     
     /** UTF-8 encoding.*/
     public static final String ENCODING_UTF_8 = "UTF-8";

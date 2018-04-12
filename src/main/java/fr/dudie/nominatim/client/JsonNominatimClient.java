@@ -132,7 +132,7 @@ public final class JsonNominatimClient implements NominatimClient {
      *            an HTTP client
      * @param email
      *            an email to add in the HTTP requests parameters to "sign" them (see
-     *            http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy)
+     *            https://wiki.openstreetmap.org/wiki/Nominatim_usage_policy)
      */
     public JsonNominatimClient(final String baseUrl, final HttpClient httpClient, final String email) {
 
@@ -148,7 +148,7 @@ public final class JsonNominatimClient implements NominatimClient {
      *            an HTTP client
      * @param email
      *            an email to add in the HTTP requests parameters to "sign" them (see
-     *            http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy)
+     *            https://wiki.openstreetmap.org/wiki/Nominatim_usage_policy)
      * @param defaults
      *            defaults options, they override null valued requests options
      */

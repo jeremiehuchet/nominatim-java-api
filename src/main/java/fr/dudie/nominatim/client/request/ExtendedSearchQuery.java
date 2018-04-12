@@ -29,7 +29,7 @@ import fr.dudie.nominatim.client.request.paramhelper.QueryParameter;
  * <p>
  * <b>This is labeled as experimental on Nominatim Wiki page</b>
  * <p>
- * Attributes documentation was extracted from <a href="http://wiki.openstreetmap.org/wiki/Nominatim">Nominatim Wiki</a>
+ * Attributes documentation was extracted from <a href="https://wiki.openstreetmap.org/wiki/Nominatim">Nominatim Wiki</a>
  * page on October 26th, 2013.
  * @author Jeremie Huchet
  */

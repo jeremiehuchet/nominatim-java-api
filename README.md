@@ -3,7 +3,7 @@ Nominatim Java API
 
 [![Build Status](https://travis-ci.org/jeremiehuchet/nominatim-java-api.png?branch=master)](https://travis-ci.org/jeremiehuchet/nominatim-java-api)
 
-This library provides a client for [Nominatim](http://wiki.openstreetmap.org/wiki/Nominatim). This API provides search and reverse geocoding operations. 
+This library provides a client for [Nominatim](https://wiki.openstreetmap.org/wiki/Nominatim). This API provides search and reverse geocoding operations.
 
 How to use
 ----------

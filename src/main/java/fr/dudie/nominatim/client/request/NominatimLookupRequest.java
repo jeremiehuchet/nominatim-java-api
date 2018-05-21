@@ -30,7 +30,7 @@ import fr.dudie.nominatim.client.request.paramhelper.QueryParameter;
 /**
  * Holds request parameters for a lookup request.
  * <p>
- * Attributes documentation was extracted from <a href="http://wiki.openstreetmap.org/wiki/Nominatim">Nominatim Wiki</a>
+ * Attributes documentation was extracted from <a href="https://wiki.openstreetmap.org/wiki/Nominatim">Nominatim Wiki</a>
  * page on September 1st, 2015.
  * 
  * @author Sunil D S

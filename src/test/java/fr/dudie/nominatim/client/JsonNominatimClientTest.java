@@ -22,24 +22,18 @@ package fr.dudie.nominatim.client;
  * [/license]
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
+import com.vividsolutions.jts.geom.Geometry;
+import fr.dudie.nominatim.client.request.NominatimLookupRequest;
+import fr.dudie.nominatim.client.request.NominatimSearchRequest;
+import fr.dudie.nominatim.client.request.paramhelper.PolygonFormat;
+import fr.dudie.nominatim.model.Address;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.SingleClientConnManager;
 import org.junit.Ignore;
@@ -47,12 +41,13 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vividsolutions.jts.geom.Geometry;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
-import fr.dudie.nominatim.client.request.NominatimLookupRequest;
-import fr.dudie.nominatim.client.request.NominatimSearchRequest;
-import fr.dudie.nominatim.client.request.paramhelper.PolygonFormat;
-import fr.dudie.nominatim.model.Address;
+import static org.junit.Assert.*;
 
 /**
  * Test class for {@link JsonNominatimClient}.
@@ -88,7 +83,7 @@ public final class JsonNominatimClientTest {
 
         LOGGER.info("Preparing http client");
         final SchemeRegistry registry = new SchemeRegistry();
-        registry.register(new Scheme("http", new PlainSocketFactory(), 80));
+        registry.register(new Scheme("https", SSLSocketFactory.getSocketFactory(), 443));
         final ClientConnectionManager connexionManager = new SingleClientConnManager(null, registry);
 
         final HttpClient httpClient = new DefaultHttpClient(connexionManager, null);

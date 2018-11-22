@@ -201,6 +201,7 @@ public final class JsonNominatimClient implements NominatimClient {
     @Override
     public List<Address> search(final NominatimSearchRequest search) throws IOException {
 
+        defaults.mergeTo(search);
         final String apiCall = String.format("%s&%s", searchUrl, search.getQueryString());
         LOGGER.debug("search url: {}", apiCall);
         final HttpGet req = new HttpGet(apiCall);
@@ -244,7 +245,6 @@ public final class JsonNominatimClient implements NominatimClient {
     public List<Address> search(final String query) throws IOException {
 
         final NominatimSearchRequest q = new NominatimSearchRequest();
-        defaults.mergeTo(q);
         q.setQuery(query);
         return this.search(q);
     }

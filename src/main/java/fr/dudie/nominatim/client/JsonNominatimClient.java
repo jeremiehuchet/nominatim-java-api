@@ -161,7 +161,7 @@ public final class JsonNominatimClient implements NominatimClient {
             emailEncoded = email;
         }
         this.searchUrl = String.format("%s/search?format=jsonv2&email=%s", baseUrl.replaceAll("/$", ""), emailEncoded);
-        this.reverseUrl = String.format("%s/reverse?format=json&email=%s", baseUrl.replaceAll("/$", ""), emailEncoded);
+        this.reverseUrl = String.format("%s/reverse?format=jsonv2&email=%s", baseUrl.replaceAll("/$", ""), emailEncoded);
         this.lookupUrl = String.format("%s/lookup?format=json&email=%s", baseUrl.replaceAll("/$", ""), emailEncoded);
 
         if (LOGGER.isDebugEnabled()) {

@@ -27,6 +27,7 @@ import fr.dudie.nominatim.client.request.NominatimLookupRequest;
 import fr.dudie.nominatim.client.request.NominatimSearchRequest;
 import fr.dudie.nominatim.client.request.paramhelper.PolygonFormat;
 import fr.dudie.nominatim.model.Address;
+import fr.dudie.nominatim.model.BoundingBox;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.http.client.HttpClient;
@@ -63,6 +64,9 @@ public final class JsonNominatimClientTest {
     /** The tested Nominatim client. */
     private static JsonNominatimClient nominatimClient;
 
+    /** A bounded Nominatim client for defaults options tests. */
+    private static JsonNominatimClient boundedNominatimClient;
+
     /** Path to the properties file. */
     private static final String PROPS_PATH = "/nominatim-client-test.properties";
 
@@ -91,6 +95,16 @@ public final class JsonNominatimClientTest {
         final String baseUrl = PROPS.getProperty("nominatim.server.url");
         final String email = PROPS.getProperty("nominatim.headerEmail");
         nominatimClient = new JsonNominatimClient(baseUrl, httpClient, email);
+
+        final BoundingBox viewBox = new BoundingBox();
+        viewBox.setNorth(48.2731);
+        viewBox.setSouth(48.2163);
+        viewBox.setEast(-4.5758);
+        viewBox.setWest(-4.4127);
+        final NominatimOptions options = new NominatimOptions();
+        options.setViewBox(viewBox);
+        options.setBounded(true);
+        boundedNominatimClient = new JsonNominatimClient(baseUrl, httpClient, email, options);
     }
 
     @Test
@@ -344,4 +358,18 @@ public final class JsonNominatimClientTest {
         assertEquals("streen level place rank", 26, result.getPlaceRank());
     }
 
+    @Test
+    public void testDefaultOptionsForSearch() throws IOException {
+        final List<Address> addresses = boundedNominatimClient.search("rue de chateaudun, rennes, france");
+        assertEquals("empty result list", 0, addresses.size());
+    }
+
+    @Test
+    public void testDefaultOptionsForQuery() throws IOException {
+        final NominatimSearchRequest r = new NominatimSearchRequest();
+        r.setQuery("rue de chateaudun, rennes, france");
+
+        final List<Address> addresses = boundedNominatimClient.search(r);
+        assertEquals("empty result list", 0, addresses.size());
+    }
 }

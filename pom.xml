@@ -58,7 +58,7 @@
     <properties>
         <!-- compile time deps versions -->
         <slf4j.version>1.7.25</slf4j.version>
-        <httpcomponents.version>4.0.3</httpcomponents.version>
+        <httpcomponents.version>4.3.6</httpcomponents.version>
 
         <!-- test deps versions -->
         <junit.version>4.12</junit.version>

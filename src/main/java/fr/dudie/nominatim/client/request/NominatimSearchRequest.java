@@ -284,16 +284,16 @@ public class NominatimSearchRequest extends NominatimRequest {
     /**
      * When true, include a list of alternative names in the results.
      *
-     * @return
+     * @return whether or not the alternative names should be included in the results
      */
     public Boolean getName() {
         return name;
     }
 
     /**
-     * Include a list of alternative names in the results.
+     * When true, include a list of alternative names in the results.
      *
-     * @param name
+     * @param name true to include a list of alternative names in the results
      */
     public void setName(Boolean name) {
         this.name = name;

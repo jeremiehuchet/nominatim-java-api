@@ -39,7 +39,7 @@ public abstract class NominatimRequest {
      * <p>
      * The query string <b>must</b> have URL encoded parameters.
      * <p>
-     * example: <code>q=some%20city&polygon_geojson=1</code>
+     * example: <code>q=some%20city&amp;polygon_geojson=1</code>
      * 
      * @return a query string
      */

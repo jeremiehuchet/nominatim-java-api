@@ -7,3 +7,5 @@ env:
   - TZ="GMT"
   - TZ="US/Arizona"
   - TZ="Europe/Paris"
+script:
+  - mvn -B license:check-file-header javadoc:javadoc verify

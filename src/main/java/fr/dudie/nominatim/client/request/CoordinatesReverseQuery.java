@@ -55,9 +55,9 @@ public class CoordinatesReverseQuery extends ReverseQuery {
     }
 
     /**
-     * @param longitude
+     * @param longitudeE6
      *            the longitude
-     * @param latitude
+     * @param latitudeE6
      *            the latitude
      */
     public CoordinatesReverseQuery(int longitudeE6, int latitudeE6) {

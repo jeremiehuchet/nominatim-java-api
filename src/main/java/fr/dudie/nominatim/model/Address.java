@@ -485,7 +485,7 @@ public final class Address {
     /**
      * Sets the elements rank (ex: 30 = building).
      * 
-     * @param rank
+     * @param placeRank
      *            the elements elements rank (ex: 30 = building) to set
      */
     public void setPlaceRank(final int placeRank) {
@@ -504,9 +504,10 @@ public final class Address {
     }
 
     /**
-     * Gets the address importance.
+     * Sets the address importance.
      *
-     * @return the address importance
+     * @param importance
+     *            the address importance
      */
     public void setImportance(final double importance) {
 
@@ -528,8 +529,8 @@ public final class Address {
      * @param wkt
      *            the WKT string to set.
      */
-    public String setWkt(String wkt) {
-        return wkt;
+    public void setWkt(String wkt) {
+        this.wkt = wkt;
     }
 
 }

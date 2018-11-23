@@ -291,7 +291,7 @@ public final class JsonNominatimClient implements NominatimClient {
     /**
      * {@inheritDoc}
      * 
-     * @see fr.dudie.nominatim.client.NominatimClient#getAddress(String, int)
+     * @see fr.dudie.nominatim.client.NominatimClient#getAddress(String, long)
      */
     @Override
     public Address getAddress(final String type, final long id) throws IOException {

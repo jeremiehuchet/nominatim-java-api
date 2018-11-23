@@ -107,9 +107,10 @@ public interface NominatimClient {
      *            An OSM id
      * @return an address corresponding to the given osm type and id pair or <code>null</code> if no result found
      * @throws IOException
+     *             a communication error occurred
      * @since 2.0.1
      * @deprecated
-     * @see fr.dudie.nominatim.client.NominatimClientV3#getAddress(fr.dudie.nominatim.client.request.NominatimReverseRequest)
+     * @see fr.dudie.nominatim.client.NominatimClient#getAddress(fr.dudie.nominatim.client.request.NominatimReverseRequest)
      */
     @Deprecated
     Address getAddress(String type, long id) throws IOException;

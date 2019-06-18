@@ -6,3 +6,4 @@
 /.checkstyle
 /*.iml
 *~
+/.flattened-pom.xml

@@ -22,6 +22,8 @@ package fr.dudie.nominatim.model;
  * [/license]
  */
 
+import java.io.Serializable;
+
 /**
  * Represents an address element or nameDetails element.
  * <p>
@@ -57,7 +59,7 @@ package fr.dudie.nominatim.model;
  * 
  * @author Jérémie Huchet
  */
-public class Element {
+public class Element implements Serializable {
 
     /** The element key. */
     private String key;

@@ -57,6 +57,12 @@
         <url>https://github.com/jeremiehuchet/nominatim-java-api/issues</url>
     </issueManagement>
 
+    <developers>
+        <developer>
+            <name>Jeremie Huchet</name>
+        </developer>
+    </developers>
+
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>

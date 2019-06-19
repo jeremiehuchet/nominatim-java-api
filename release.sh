@@ -47,7 +47,7 @@ git clone git@github.com:jeremiehuchet/nominatim-java-api.git ${basedir}/target/
   cd ..
   rm -f latest
   ln -s ${VERSION} latest
-  find -mindepth 1 -maxdepth 1 -type d ! -name '.*' -printf '%P\n' > index.txt
+  find -mindepth 1 -maxdepth 1 ! -type f ! -name '.*' -printf '%P\n' | sort > index.txt
   git add .
   git commit -m "update javadoc with ${VERSION}"
   git push origin gh-pages

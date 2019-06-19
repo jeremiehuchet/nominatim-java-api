@@ -10,6 +10,9 @@ if [[ $(git tag -l --points-at HEAD | wc -l) != 1 ]] ; then
   exit 1
 fi
 
+VERSION=$(git tag -l --points-at HEAD | sed 's/^v//g')
+echo Releasing ${VERSION}
+
 if [[ -n "$(git status --porcelain)" ]] ; then
   echo Workspace must be clean
   echo '  (use "git status" to see uncommited changes)'
@@ -32,8 +35,25 @@ function release() {
     -Dclassifier=$2
 }
 
-mvn clean package -Drevision=$(git tag -l --points-at HEAD)
+mvn clean package -Drevision=${VERSION}
 
+# publish javadoc
+git clone git@github.com:jeremiehuchet/nominatim-java-api.git ${basedir}/target/release-gh-pages && (
+  cd ${basedir}/target/release-gh-pages
+  git checkout gh-pages
+  mkdir ${basedir}/target/release-gh-pages/${VERSION}
+  cd ${basedir}/target/release-gh-pages/${VERSION}
+  jar xf ${basedir}/target/nominatim-api-javadoc.jar
+  cd ..
+  rm -f latest
+  ln -s ${VERSION} latest
+  find -mindepth 1 -maxdepth 1 -type d ! -name '.*' -printf '%P\n' > index.txt
+  git add .
+  git commit -m "update javadoc with ${VERSION}"
+  git push origin gh-pages
+)
+
+# publish artifacts
 cat - <<EOF > ${basedir}/target/release-settings.xml
 <settings>
   <servers>

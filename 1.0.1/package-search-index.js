@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"fr.dudie.nominatim.client"},{"l":"fr.dudie.nominatim.model"}]

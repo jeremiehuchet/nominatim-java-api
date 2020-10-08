@@ -23,7 +23,7 @@ Maven users can add the following dependency to their pom.xml:
 How to use
 ----------
 
-See the API [javadoc](https://jeremiehuchet.github.io/nominatim-java-api/latest).
+See the API [javadoc](https://jeremiehuchet.github.io/nominatim-java-api/latest) and [JUnit tests](https://github.com/jeremiehuchet/nominatim-java-apib/bba6e4784ff14844fb25030d6c1363e23f931e18/src/test/java/fr/dudie/nominatim/client/JsonNominatimClientTest.java). 
 
 Java & Android
 --------------

@@ -8,3 +8,7 @@ env:
   - TZ="Europe/Paris"
 script:
   - mvn -B verify
+
+cache:
+  directories:
+  - $HOME/.m2

@@ -201,7 +201,7 @@ public final class JsonNominatimClientTest {
         LOGGER.info("testReverseLookUpZoomLevelCanBeControlled.start");
 
         final Address highLevelAddress = nominatimClient.getAddress(-0.32, 51.44, 1);
-        assertEquals("European Union", highLevelAddress.getDisplayName());
+        assertEquals("United Kingdom", highLevelAddress.getDisplayName());
 
         final Address lowerLevelAddress = nominatimClient.getAddress(-0.32, 51.44, 10);
         assertTrue(lowerLevelAddress.getPlaceId() != highLevelAddress.getPlaceId());
@@ -218,7 +218,7 @@ public final class JsonNominatimClientTest {
 
         final Address address = nominatimClient.getAddress("W", 26932726);
         assertEquals(
-                "Eel Pie Island, Thames Path, Ham, London Borough of Richmond upon Thames, London, Greater London, England, TW1 3DT, United Kingdom, European Union",
+                "Eel Pie Island, St Margarets, London Borough of Richmond upon Thames, London, Greater London, England, United Kingdom",
                 address.getDisplayName());
         assertEquals("way", address.getOsmType());
         assertEquals("26932726", address.getOsmId());

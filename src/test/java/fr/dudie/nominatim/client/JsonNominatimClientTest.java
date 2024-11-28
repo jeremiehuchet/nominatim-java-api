@@ -22,7 +22,7 @@ package fr.dudie.nominatim.client;
  * [/license]
  */
 
-import com.vividsolutions.jts.geom.Geometry;
+import org.locationtech.jts.geom.Geometry;
 import fr.dudie.nominatim.client.request.NominatimLookupRequest;
 import fr.dudie.nominatim.client.request.NominatimSearchRequest;
 import fr.dudie.nominatim.client.request.paramhelper.PolygonFormat;

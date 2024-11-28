@@ -23,7 +23,7 @@ package fr.dudie.nominatim.model;
  */
 
 import com.google.gson.annotations.SerializedName;
-import com.vividsolutions.jts.geom.Geometry;
+import org.locationtech.jts.geom.Geometry;
 import java.io.Serializable;
 
 /**

@@ -47,12 +47,6 @@ public class NominatimReverseRequestTest {
     }
 
     @Test
-    public void simpleOsmTypeAndIdQuery() throws UnsupportedEncodingException {
-        req.setQuery(OsmType.NODE, 12345);
-        assertEquals("osm_type=N&osm_id=12345", req.getQueryString());
-    }
-
-    @Test
     public void simpleCoordQueryWithAcceptLanguage() throws UnsupportedEncodingException {
         req.setQuery(-1.14465546607971, 48.1462173461914);
         req.setAcceptLanguage("fr_FR");

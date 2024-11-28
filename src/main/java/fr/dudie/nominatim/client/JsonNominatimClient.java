@@ -25,6 +25,7 @@ package fr.dudie.nominatim.client;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.client.HttpClient;
@@ -296,9 +297,13 @@ public final class JsonNominatimClient implements NominatimClient {
     @Override
     public Address getAddress(final String type, final long id) throws IOException {
 
-        final NominatimReverseRequest q = new NominatimReverseRequest();
-        q.setQuery(OsmType.from(type), id);
-        return this.getAddress(q);
+	final List<String> typeIds = new ArrayList<String>();
+        typeIds.add(type + id);
+        final List<Address> response = this.lookupAddress(typeIds);
+	if (response != null && response.size() > 0) {
+            return response.get(0);
+	}
+	return null;
     }
 
     /**

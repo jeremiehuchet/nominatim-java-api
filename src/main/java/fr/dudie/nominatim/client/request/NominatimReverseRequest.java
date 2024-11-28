@@ -23,7 +23,6 @@ package fr.dudie.nominatim.client.request;
  */
 
 import fr.dudie.nominatim.client.request.paramhelper.BooleanSerializer;
-import fr.dudie.nominatim.client.request.paramhelper.OsmType;
 import fr.dudie.nominatim.client.request.paramhelper.QueryParameter;
 
 /**
@@ -87,10 +86,6 @@ public class NominatimReverseRequest extends NominatimRequest {
      */
     public void setQuery(final ReverseQuery query) {
         this.query = query;
-    }
-
-    public void setQuery(final OsmType type, final long id) {
-        this.query = new OsmTypeAndIdReverseQuery(type, id);
     }
 
     public void setQuery(final double longitude, final double latitude) {

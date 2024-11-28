@@ -1,0 +1,5 @@
+fr.dudie.nominatim.client
+fr.dudie.nominatim.client.request
+fr.dudie.nominatim.client.request.paramhelper
+fr.dudie.nominatim.gson
+fr.dudie.nominatim.model
